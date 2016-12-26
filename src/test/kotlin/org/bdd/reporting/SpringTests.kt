@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.ComponentScan
 import org.springframework.core.env.ConfigurableEnvironment
 import org.springframework.core.io.Resource
 import org.springframework.http.HttpEntity
@@ -31,7 +30,6 @@ import java.nio.file.Files
  */
 @RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ComponentScan
 class SpringTests {
 
     @Autowired
@@ -53,6 +51,30 @@ class SpringTests {
 
     @TestConfiguration
     internal open class MyTestConfiguration(val env : ConfigurableEnvironment) {
+
+//        @Value("\${server.port}")
+//        var port : Int? = null
+//
+//        @Configuration
+//        @EnableAuthorizationServer
+//        internal open class AuthServerConfig : AuthorizationServerConfigurerAdapter() {
+//
+//            override fun configure(clients: ClientDetailsServiceConfigurer) {
+//                clients.inMemory()
+//                        .withClient("test").secret("password").scopes("read").autoApprove(true)
+//            }
+//        }
+//
+//        @Bean
+//        open fun oauthRestTemplate() : OAuth2RestTemplate {
+//            val resourceDetails = ResourceOwnerPasswordResourceDetails()
+//            resourceDetails.clientId = "test"
+//            resourceDetails.clientSecret = "password"
+//            resourceDetails.accessTokenUri = "http://localhost:$port/oauth/token"
+//            resourceDetails.grantType = "client_credentials"
+//            val oauthContext = DefaultOAuth2ClientContext()
+//            return OAuth2RestTemplate(resourceDetails, oauthContext)
+//        }
 
         @Bean
         open fun kafka() : KafkaServerStartable {
