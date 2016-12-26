@@ -15,9 +15,9 @@ import java.nio.file.Files
  * Created by Grant Little grant@grantlittle.me
  */
 @RunWith(Cucumber::class)
-@CucumberOptions(features = arrayOf("src/test/resources/features/parsing"))
+@CucumberOptions(features = arrayOf("src/test/resources/features/parsing"),
+        glue = arrayOf("org.bdd.reporting.features.parsing", "cucumber.api.spring"))
 class ParsingTests {
-
 
     companion object {
         @BeforeClass
