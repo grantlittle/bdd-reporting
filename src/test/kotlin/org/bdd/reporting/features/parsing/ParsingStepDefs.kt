@@ -10,11 +10,6 @@ import cucumber.api.java.en.When
  */
 class ParsingStepDefs {
 
-    @Given("something")
-    fun something() {
-
-    }
-
     @Given("^a cucumber json report file$")
     fun aCucumberJsonReportFile() {
         // Write code here that turns the phrase above into concrete actions
@@ -27,7 +22,7 @@ class ParsingStepDefs {
         throw PendingException()
     }
 
-    @Then("^the test results should appear in the tool$")
+    @Then("^we should receive a acknowledgement from the system$")
     fun theTestResultsShouldAppearInTheTool() {
         // Write code here that turns the phrase above into concrete actions
         throw PendingException()

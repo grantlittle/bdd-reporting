@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>bdd-reporting</name>
-	<description>BDD Central Reporting</description>
+	<description>BDD Enterprise Reporting</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -24,6 +24,8 @@
 		<java.version>1.8</java.version>
 		<kotlin.version>1.0.5-2</kotlin.version>
 		<cucumber.version>RELEASE</cucumber.version>
+		<commons.logging.version>RELEASE</commons.logging.version>
+		<spring.kafka.version>1.1.1.RELEASE</spring.kafka.version>
 	</properties>
 
 	<dependencies>
@@ -61,21 +63,49 @@
 			<artifactId>jna</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>${commons.logging.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+			<version>${spring.kafka.version}</version>
+		</dependency>
+
+		<!-- Testing dependencies -->
+		<dependency>
+			<groupId>org.apache.curator</groupId>
+			<artifactId>curator-test</artifactId>
+			<version>3.2.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-junit</artifactId>
 			<version>${cucumber.version}</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-java8</artifactId>
 			<version>${cucumber.version}</version>
+			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka-test</artifactId>
+			<version>${spring.kafka.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- End of testing dependencies -->
 	</dependencies>
 
 	<dependencyManagement>
