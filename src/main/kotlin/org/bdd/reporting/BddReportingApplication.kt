@@ -1,11 +1,13 @@
 package org.bdd.reporting
 
+import org.bdd.reporting.web.rest.cucumber.CucumberFeatureRestController
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso
+import org.springframework.context.annotation.ComponentScan
 
 @SpringBootApplication
-@EnableOAuth2Sso
+@ComponentScan(basePackageClasses = arrayOf(BddReportingApplication::class, CucumberFeatureRestController::class))
+//@EnableOAuth2Sso
 open class BddReportingApplication {
 
     companion object {

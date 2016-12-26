@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/1.0/features/cucumber")
 class CucumberFeatureRestController {
 
+    init {
+        if (LOG.isInfoEnabled) LOG.info("CucumberFeatureRestController starting")
+    }
+
     companion object {
         private val LOG = LogFactory.getLog(CucumberFeatureRestController::class.java)
     }
@@ -18,7 +22,7 @@ class CucumberFeatureRestController {
 
     @PutMapping(consumes = arrayOf("application/json"))
     fun saveFeatures(@RequestBody features: List<CucumberFeature>) {
-        if (LOG.isInfoEnabled) {
+        if (LOG.isErrorEnabled) {
             LOG.info("Adding features data to features " + features)
         }
 
