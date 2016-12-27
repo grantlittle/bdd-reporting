@@ -8,6 +8,6 @@ import org.springframework.context.annotation.Profile
  * Created by Grant Little grant@grantlittle.me
  */
 @Configuration
-@Profile("oauth")
+@Profile("!noauth")
 @EnableOAuth2Sso
 open class SsoConfiguration
