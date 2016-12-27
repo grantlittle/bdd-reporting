@@ -2,6 +2,7 @@ package org.bdd.reporting.web.rest.cucumber
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.io.Serializable
+import java.util.*
 
 /**
  * Created by Grant Little grant@grantlittle.me
@@ -16,7 +17,8 @@ data class CucumberFeature constructor (
         var uri: String? = null,
         var elements: Array<CucumberScenario> = emptyArray(),
         var tags: Set<CucumberTag>? = null,
-        var labels: Set<String>? = null ) : Serializable {
+        var labels: Set<String>? = null,
+        val timestamp : Date = Date()) : Serializable {
 
     companion object {
 
