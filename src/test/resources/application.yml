@@ -1,4 +1,7 @@
 ---
 
+sso:
+  enabled: false
+
 spring:
   autoconfigure.exclude: SecurityAutoCon
