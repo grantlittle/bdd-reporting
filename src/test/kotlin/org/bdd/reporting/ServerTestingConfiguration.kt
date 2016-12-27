@@ -14,7 +14,7 @@ import java.nio.file.Files
  * Created by Grant Little grant@grantlittle.me
  */
 @Configuration
-open class MyConfiguration {
+open class ServerTestingConfiguration {
 
     @TestConfiguration
     internal open class TestConfig(val env : ConfigurableEnvironment) {

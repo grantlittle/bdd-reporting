@@ -1,0 +1,48 @@
+{
+  "Features": [
+    {
+      "RelativeFolder": "Features\\Feature1.feature",
+      "Feature": {
+        "Name": "Feature1",
+        "Description": "Description of Feature1",
+        "FeatureElements": [
+          {
+            "Name": "Scenario 1",
+            "Description": "",
+            "Steps": [
+              {
+                "Keyword": "Given",
+                "NativeKeyword": "Given ",
+                "Name": "we do some setup",
+                "StepComments": [],
+                "AfterLastStepComments": []
+              },
+              {
+                "Keyword": "When",
+                "NativeKeyword": "When ",
+                "Name": "some action takes place",
+                "StepComments": [],
+                "AfterLastStepComments": []
+              },
+              {
+                "Keyword": "Then",
+                "NativeKeyword": "Then ",
+                "Name": "we check some result",
+                "StepComments": [],
+                "AfterLastStepComments": []
+              }
+            ],
+            "Tags": [
+              "@Tag1"
+            ],
+            "Result": {
+              "WasExecuted": true,
+              "WasSuccessful": true
+            }
+          }
+        ]
+      }
+
+    }
+  ]
+}

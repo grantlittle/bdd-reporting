@@ -27,6 +27,10 @@ open class ParsingStepDefs : AbstractStepDefs() {
     @Value("classpath:cucumber-output.json")
     var sampleCucumberJson : Resource? = null
 
+    @Value("classpath:pickles-output.json")
+    var samplePicklesJson : Resource? = null
+
+
     @Given("^a cucumber json report file$")
     fun aCucumberJsonReportFile() {
 
@@ -36,10 +40,26 @@ open class ParsingStepDefs : AbstractStepDefs() {
         entity = HttpEntity<String>(json, headers)
     }
 
+    @Given("^a pickles json report file$")
+    fun aPicklesJsonReportFile() {
+
+        val json = IOUtils.toString(samplePicklesJson!!.inputStream)
+        val headers = HttpHeaders()
+        headers["Content-type"] = "application/json"
+        entity = HttpEntity<String>(json, headers)
+    }
+
+
     @When("^the cucumber report file is uploaded$")
-    fun theCucumberReportFileIsParsed()  {
+    fun theCucumberReportFileIsUploaded()  {
         responseEntity = restTemplate!!.exchange("/api/1.0/features/cucumber", HttpMethod.PUT, entity, Any::class.java)
     }
+
+    @When("^the pickles report file is uploaded$")
+    fun thePicklesReportFileIsUploaded()  {
+        responseEntity = restTemplate!!.exchange("/api/1.0/features/pickles", HttpMethod.PUT, entity, Any::class.java)
+    }
+
 
     @Then("^we should receive a positive acknowledgement from the system$")
     fun theTestResultsShouldAppearInTheTool() {
