@@ -3,11 +3,13 @@ package org.bdd.reporting
 import kafka.server.KafkaConfig
 import kafka.server.KafkaServerStartable
 import org.apache.curator.test.TestingServer
+import org.bdd.reporting.config.KafkaConfiguration
+import org.bdd.reporting.config.ZooKeeperSettings
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.ConfigurableEnvironment
-import org.springframework.util.SocketUtils
 import java.nio.file.Files
 
 /**
@@ -17,31 +19,9 @@ import java.nio.file.Files
 open class ServerTestingConfiguration {
 
     @TestConfiguration
-    internal open class TestConfig(val env : ConfigurableEnvironment) {
-
-//        @Value("\${server.port}")
-//        var port : Int? = null
-//
-//        @Configuration
-//        @EnableAuthorizationServer
-//        internal open class AuthServerConfig : AuthorizationServerConfigurerAdapter() {
-//
-//            override fun configure(clients: ClientDetailsServiceConfigurer) {
-//                clients.inMemory()
-//                        .withClient("test").secret("password").scopes("read").autoApprove(true)
-//            }
-//        }
-//
-//        @Bean
-//        open fun oauthRestTemplate() : OAuth2RestTemplate {
-//            val resourceDetails = ResourceOwnerPasswordResourceDetails()
-//            resourceDetails.clientId = "test"
-//            resourceDetails.clientSecret = "password"
-//            resourceDetails.accessTokenUri = "http://localhost:$port/oauth/token"
-//            resourceDetails.grantType = "client_credentials"
-//            val oauthContext = DefaultOAuth2ClientContext()
-//            return OAuth2RestTemplate(resourceDetails, oauthContext)
-//        }
+    internal open class TestConfig(val env : ConfigurableEnvironment,
+                                   @Qualifier("ZooKeeperSettings")val zookeeperSettings : ZooKeeperSettings,
+                                   val kafkaSettings: KafkaConfiguration.KafkaSettings) {
 
         @Bean
         open fun kafka() : KafkaServerStartable {
@@ -53,7 +33,7 @@ open class ServerTestingConfiguration {
             kafkaProperties["zookeeper.connect"] = "localhost:${zookeeperServer.port}"
             kafkaProperties["broker.id"] = "1"
             kafkaProperties["logs.dir"] = logsDir.toAbsolutePath()
-            kafkaProperties["port"] = SocketUtils.findAvailableTcpPort()
+            kafkaProperties["port"] = kafkaSettings.randomPort()
             val kafkaConfig = KafkaConfig(kafkaProperties)
 
             return KafkaServerStartable(kafkaConfig)
@@ -63,6 +43,7 @@ open class ServerTestingConfiguration {
         open fun zookeeper() : TestingServer {
             val server = TestingServer()
             env.systemProperties.put("spring.cloud.zookeeper.connect-string", "localhost:${server.port}")
+            zookeeperSettings.connectString = "localhost:${server.port}"
             return server
         }
 

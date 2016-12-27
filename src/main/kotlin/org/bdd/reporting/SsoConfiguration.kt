@@ -9,6 +9,5 @@ import org.springframework.context.annotation.Configuration
  */
 @Configuration
 @ConditionalOnProperty(name=arrayOf("enabled"), prefix = "sso", havingValue = "true", matchIfMissing = true)
-//@Profile("!noauth")
 @EnableOAuth2Sso
 open class SsoConfiguration

@@ -1,6 +1,9 @@
 package org.bdd.reporting.web.rest.cucumber
 
 import org.apache.commons.logging.LogFactory
+import org.apache.kafka.clients.producer.KafkaProducer
+import org.apache.kafka.clients.producer.ProducerRecord
+import org.bdd.reporting.events.CucumberFeatureEvent
 import org.springframework.web.bind.annotation.*
 
 /**
@@ -9,7 +12,7 @@ import org.springframework.web.bind.annotation.*
 @Suppress("unused")
 @RestController
 @RequestMapping("/api/1.0/features/cucumber")
-class CucumberFeatureRestController {
+class CucumberFeatureRestController(val kafkaProducer : KafkaProducer<String, Any>) {
 
     init {
         if (LOG.isInfoEnabled) LOG.info("CucumberFeatureRestController starting")
@@ -26,9 +29,9 @@ class CucumberFeatureRestController {
             LOG.info("Adding features data to features " + features)
         }
 
-//        features
-//                .map { ProducerRecord<String, Any>("cucumber-features", it.id, CucumberFeatureEvent(feature = it)) }
-//                .forEach { producer.send(it) }
+        features
+                .map { ProducerRecord<String, Any>("cucumber-features", it.id, CucumberFeatureEvent(feature = it)) }
+                .forEach { kafkaProducer.send(it) }
 
     }
 
