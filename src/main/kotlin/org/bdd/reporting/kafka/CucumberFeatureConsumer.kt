@@ -34,14 +34,14 @@ class CucumberFeatureConsumer(@Qualifier("CucumberFeatureManagedConsumer")privat
         val event = record.value()
 
 
-        val commonFeature = CommonFeature(id = event!!.feature!!.id!!,
+        val commonFeature = CommonFeature(id = event!!.feature!!.id ?: event.feature?.name!!,
                 timestamp = event.feature!!.timestamp,
                 name = event.feature.name!!,
                 description = event.feature.description,
                 labels = event.feature.labels ?: emptySet(),
                 tags = tags(event.feature.tags))
 
-        producer.send(ProducerRecord<String, Any>("common-feature", event.uuid, commonFeature))
+        producer.send(ProducerRecord<String, Any>("common-features", event.uuid, commonFeature))
 
     }
 

@@ -1,12 +1,11 @@
-package org.bdd.reporting.config
+package org.bdd.reporting.kafka
 
 import org.apache.kafka.clients.producer.KafkaProducer
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
 import org.bdd.reporting.JsonSerializer
+import org.bdd.reporting.data.CommonFeature
 import org.bdd.reporting.events.CucumberFeatureEvent
-import org.bdd.reporting.kafka.CucumberFeatureEventJsonDeserializer
-import org.bdd.reporting.kafka.ManagedKafkaConsumer
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -54,5 +53,16 @@ open class KafkaConfiguration {
         return ManagedKafkaConsumer(props, setOf("cucumber-features"))
     }
 
+    @Bean(name = arrayOf("CommonFeatureManagedConsumer"))
+    open fun commonFeatureKafkaConsumer(kafkaSettings: KafkaSettings) : ManagedKafkaConsumer<String, CommonFeature> {
+        val props = mutableMapOf(
+                Pair("bootstrap.servers", kafkaSettings.bootstrapServers()),
+                Pair("key.deserializer", StringDeserializer::class.java.name),
+                Pair("value.deserializer", CommonFeatureJsonDeserializer::class.java.name),
+                //                Pair("partition.assignment.strategy", "range"),
+                Pair("group.id", "cucumber")
+        )
+        return ManagedKafkaConsumer(props, setOf("common-features"))
+    }
 
 }

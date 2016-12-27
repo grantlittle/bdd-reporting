@@ -3,7 +3,7 @@ package org.bdd.reporting
 import kafka.server.KafkaConfig
 import kafka.server.KafkaServerStartable
 import org.apache.curator.test.TestingServer
-import org.bdd.reporting.config.KafkaConfiguration
+import org.bdd.reporting.kafka.KafkaConfiguration
 import org.bdd.reporting.config.ZooKeeperSettings
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.TestConfiguration
