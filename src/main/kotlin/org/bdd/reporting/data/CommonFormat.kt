@@ -13,3 +13,5 @@ data class CommonFeature(var id : String? = null,
                          val labels : Set<String>? = mutableSetOf(),
                          val tags : Set<CommonTag> = mutableSetOf(),
                          var timestamp : Date? = null)
+
+data class CommonTag(var name : String? = null, var line : Int? = null)

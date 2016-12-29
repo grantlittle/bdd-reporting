@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository
  */
 @Repository
 interface FeatureRepository : CrudRepository<CommonFeature, String> {
+
+    fun findByName(name : String) : Set<CommonFeature>
 }

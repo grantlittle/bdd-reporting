@@ -1,6 +1,16 @@
 [
   {
+    "id": "feature1",
     "name": "Feature1",
-    "description": "Description"
+    "description": "Description",
+    "keyword": "feature",
+    "tags": [
+      {
+        "name": "@tag1"
+      }
+    ],
+    "labels": [
+      "label1"
+    ]
   }
 ]
