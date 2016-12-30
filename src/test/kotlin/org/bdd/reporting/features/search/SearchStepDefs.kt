@@ -1,6 +1,5 @@
 package org.bdd.reporting.features.search
 
-import cucumber.api.PendingException
 import cucumber.api.java.en.Given
 import cucumber.api.java.en.Then
 import cucumber.api.java.en.When
@@ -28,6 +27,8 @@ class SearchStepDefs : AbstractStepDefs() {
     @Value("classpath:cucumber-output.json")
     var sampleCucumberJson : Resource? = null
 
+    private var response : Array<CommonFeature>? = null
+
     @Given("^some reports have been uploaded$")
     fun some_reports_have_been_uploaded() {
         val json = IOUtils.toString(sampleCucumberJson!!.inputStream)
@@ -41,14 +42,12 @@ class SearchStepDefs : AbstractStepDefs() {
 
     @When("^I search for a term$")
     fun i_search_for_a_term() {
-        val headers = HttpHeaders()
-        val responseEntity = restTemplate!!.getForObject("/api/1.0/search?name={name}", Array<CommonFeature>::class.java, "Feature1")
+        response = restTemplate!!.getForObject("/api/1.0/search?name={name}", Array<CommonFeature>::class.java, "Feature1")
     }
 
     @Then("^I should see all items related to that term in the search results$")
     fun i_should_see_all_items_related_to_that_term_in_the_search_results() {
-        // Write code here that turns the phrase above into concrete actions
-        throw PendingException()
+        assertEquals(2, response?.size)
     }
 
 }
