@@ -16,15 +16,16 @@ import java.util.*
  * Created by Grant Little grant@grantlittle.me
  */
 @Configuration
-open class KafkaConfiguration {
+open class KafkaClientConfiguration {
 
     @Configuration
     @ConfigurationProperties(prefix = "bdd.reporting.kafka")
-    open class KafkaSettings (var port : Int = 9092) {
+    open class KafkaSettings (var port : Int = -1) {
 
-        fun randomPort() : Int {
-            port = SocketUtils.findAvailableTcpPort()
-            return port
+        init {
+            if (port == -1) {
+                port = SocketUtils.findAvailableTcpPort()
+            }
         }
 
         fun bootstrapServers() : String {
@@ -48,7 +49,7 @@ open class KafkaConfiguration {
                 Pair("key.deserializer", StringDeserializer::class.java.name),
                 Pair("value.deserializer", CucumberFeatureEventJsonDeserializer::class.java.name),
                 //                Pair("partition.assignment.strategy", "range"),
-                Pair("group.id", "cucumber")
+                Pair("group.id", "cucumber-common")
         )
         return ManagedKafkaConsumer(props, setOf("cucumber-features"))
     }
@@ -60,7 +61,7 @@ open class KafkaConfiguration {
                 Pair("key.deserializer", StringDeserializer::class.java.name),
                 Pair("value.deserializer", CommonFeatureJsonDeserializer::class.java.name),
                 //                Pair("partition.assignment.strategy", "range"),
-                Pair("group.id", "cucumber")
+                Pair("group.id", "common-elastic")
         )
         return ManagedKafkaConsumer(props, setOf("common-features"))
     }

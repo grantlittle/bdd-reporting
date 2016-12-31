@@ -30,6 +30,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.github.spullara.mustache.java</groupId>
+			<artifactId>compiler</artifactId>
+			<version>0.9.4</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-zookeeper-discovery</artifactId>
 		</dependency>

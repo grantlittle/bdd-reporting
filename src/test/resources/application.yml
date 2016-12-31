@@ -5,3 +5,6 @@ sso:
 
 spring:
   autoconfigure.exclude: SecurityAutoCon
+logging:
+  level:
+    org.apache.kafka: ERROR

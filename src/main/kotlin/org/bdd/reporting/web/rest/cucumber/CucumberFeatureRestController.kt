@@ -30,8 +30,11 @@ class CucumberFeatureRestController(val kafkaProducer : KafkaProducer<String, An
         }
 
         features
-                .map { ProducerRecord<String, Any>("cucumber-features", it.id, CucumberFeatureEvent(feature = it)) }
-                .forEach { kafkaProducer.send(it) }
+                .map {
+                    val id = it.id ?: "unknown".hashCode()
+                    ProducerRecord<String, Any>("cucumber-features", id.toString(), CucumberFeatureEvent(feature = it))
+                }
+//                .forEach { kafkaProducer.send(it) }
 
     }
 

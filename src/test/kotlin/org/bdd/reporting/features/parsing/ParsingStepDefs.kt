@@ -4,6 +4,8 @@ import cucumber.api.java.en.Given
 import cucumber.api.java.en.Then
 import cucumber.api.java.en.When
 import org.apache.commons.io.IOUtils
+import org.apache.commons.logging.Log
+import org.apache.commons.logging.LogFactory
 import org.bdd.reporting.AbstractStepDefs
 import org.junit.Assert.assertEquals
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,6 +18,8 @@ import org.springframework.http.*
  * Created by Grant Little grant@grantlittle.me
  */
 open class ParsingStepDefs : AbstractStepDefs() {
+
+    private val log : Log = LogFactory.getLog(ParsingStepDefs::class.java)
 
     @Autowired
     var restTemplate: TestRestTemplate? = null
@@ -53,17 +57,20 @@ open class ParsingStepDefs : AbstractStepDefs() {
     @When("^the cucumber report file is uploaded$")
     fun theCucumberReportFileIsUploaded()  {
         responseEntity = restTemplate!!.exchange("/api/1.0/features/cucumber", HttpMethod.PUT, entity, Any::class.java)
+        log.info("Cucumber file has been sent to kafka")
     }
 
     @When("^the pickles report file is uploaded$")
     fun thePicklesReportFileIsUploaded()  {
         responseEntity = restTemplate!!.exchange("/api/1.0/features/pickles", HttpMethod.PUT, entity, Any::class.java)
+        log.info("Pickles file has been sent to kafka")
     }
 
 
     @Then("^we should receive a positive acknowledgement from the system$")
     fun theTestResultsShouldAppearInTheTool() {
         assertEquals(HttpStatus.OK, responseEntity!!.statusCode)
+        log.info("Received 200 from server")
     }
 
 }

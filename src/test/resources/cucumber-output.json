@@ -11,6 +11,21 @@
     ],
     "labels": [
       "label1"
+    ],
+    "elements": [
+      {
+        "id" : "scenario1",
+        "name" : "Scenario 1",
+        "line" : 1,
+        "description" : "Description of Scenario 1",
+        "type" : "Scenario",
+        "keyword" : "Given",
+        "tags": [
+          {
+            "name": "@scenariotag1"
+          }
+        ]
+      }
     ]
   }
 ]

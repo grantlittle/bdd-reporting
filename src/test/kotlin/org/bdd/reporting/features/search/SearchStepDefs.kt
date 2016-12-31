@@ -9,6 +9,7 @@ import org.bdd.reporting.data.CommonFeature
 import org.junit.Assert.assertEquals
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.core.io.Resource
 import org.springframework.http.HttpEntity
@@ -19,6 +20,7 @@ import org.springframework.http.HttpStatus
 /**
  * Created by Grant Little grant@grantlittle.me
  */
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class SearchStepDefs : AbstractStepDefs() {
 
     @Autowired
@@ -42,7 +44,14 @@ class SearchStepDefs : AbstractStepDefs() {
 
     @When("^I search for a term$")
     fun i_search_for_a_term() {
-        response = restTemplate!!.getForObject("/api/1.0/search?name={name}", Array<CommonFeature>::class.java, "Feature1")
+        var count = 0
+        while (count < 3 && (response == null || response?.size == 0)) {
+            response = restTemplate!!.getForObject("/api/1.0/search?name={name}", Array<CommonFeature>::class.java, "Feature1")
+            if (response == null || (response as Array<CommonFeature>).size == 0) {
+                Thread.sleep(1000)
+                count++
+            }
+        }
     }
 
     @Then("^I should see all items related to that term in the search results$")
