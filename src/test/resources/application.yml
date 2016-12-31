@@ -5,3 +5,4 @@ sso:
 
 spring:
   autoconfigure.exclude: SecurityAutoCon
+
