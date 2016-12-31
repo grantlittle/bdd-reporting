@@ -4,6 +4,9 @@ language: java
 
 sudo: false
 
+env:
+    - MAVEN_OPTS="-XX:MaxPermSize=128m"
+
 cache:
   directories:
     - $HOME/.m2
