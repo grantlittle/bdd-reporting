@@ -25,3 +25,5 @@ nbdist/
 /bdd-reporting.iml
 src/main/resources/static/
 src/main/resources/templates/
+/data/
+data/

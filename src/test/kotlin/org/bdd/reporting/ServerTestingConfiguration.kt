@@ -19,7 +19,6 @@ import java.nio.file.Files
  * Created by Grant Little grant@grantlittle.me
  */
 @Configuration
-@Order(Int.MIN_VALUE)
 open class ServerTestingConfiguration {
 
     @TestConfiguration
