@@ -26,6 +26,7 @@
 		<cucumber.version>RELEASE</cucumber.version>
 		<commons.logging.version>RELEASE</commons.logging.version>
 		<spring.kafka.version>1.1.1.RELEASE</spring.kafka.version>
+		<apache.curator.version>3.2.1</apache.curator.version>
 	</properties>
 
 	<dependencies>
@@ -34,10 +35,10 @@
 			<artifactId>compiler</artifactId>
 			<version>0.9.4</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-zookeeper-discovery</artifactId>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.cloud</groupId>-->
+			<!--<artifactId>spring-cloud-starter-zookeeper-discovery</artifactId>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
@@ -46,14 +47,20 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-freemarker</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security.oauth</groupId>
-			<artifactId>spring-security-oauth2</artifactId>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.apache.curator</groupId>-->
+			<!--<artifactId>curator-framework</artifactId>-->
+			<!--<version>${apache.curator.version}</version>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-security</artifactId>-->
+		<!--</dependency>-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.security.oauth</groupId>-->
+			<!--<artifactId>spring-security-oauth2</artifactId>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -79,12 +86,12 @@
 		</dependency>
 
 		<!-- Testing dependencies -->
-		<dependency>
-			<groupId>org.apache.curator</groupId>
-			<artifactId>curator-test</artifactId>
-			<version>3.2.1</version>
-			<scope>test</scope>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.apache.curator</groupId>-->
+			<!--<artifactId>curator-test</artifactId>-->
+			<!--<version>${apache.curator.version}</version>-->
+			<!--<scope>test</scope>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-junit</artifactId>
@@ -118,7 +125,7 @@
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka-test</artifactId>
 			<version>${spring.kafka.version}</version>
-			<scope>test</scope>
+			<!--<scope>test</scope>-->
 		</dependency>
 
 		<!-- End of testing dependencies -->

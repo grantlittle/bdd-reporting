@@ -17,7 +17,7 @@ open class ManagedKafkaConsumer<K, V>(var map: Map<String, Any>,
     private var running = true
     private val taskExecutor = Executors.newSingleThreadExecutor()
 
-    open fun handler(handler : (ConsumerRecord<K, V>) -> Unit) {
+    fun start(handler : (ConsumerRecord<K, V>) -> Unit) {
         taskExecutor.execute {
             LOG.info("KafKa consumer")
             val consumer = KafkaConsumer<K, V>(map)
@@ -33,6 +33,7 @@ open class ManagedKafkaConsumer<K, V>(var map: Map<String, Any>,
 
         }
     }
+
 
     open fun stop() {
         running = false

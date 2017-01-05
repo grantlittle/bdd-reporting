@@ -6,37 +6,24 @@ import org.apache.kafka.common.serialization.StringSerializer
 import org.bdd.reporting.JsonSerializer
 import org.bdd.reporting.data.CommonFeature
 import org.bdd.reporting.events.CucumberFeatureEvent
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.util.SocketUtils
+import org.springframework.kafka.test.rule.KafkaEmbedded.SPRING_EMBEDDED_KAFKA_BROKERS
 import java.util.*
 
 /**
  * Created by Grant Little grant@grantlittle.me
  */
 @Configuration
-open class KafkaClientConfiguration {
+open class KafkaClientConfiguration(val kafkaSettings: KafkaSettings) {
 
-    @Configuration
-    @ConfigurationProperties(prefix = "bdd.reporting.kafka")
-    open class KafkaSettings (var port : Int = -1) {
 
-        init {
-            if (port == -1) {
-                port = SocketUtils.findAvailableTcpPort()
-            }
-        }
-
-        fun bootstrapServers() : String {
-            return "localhost:$port"
-        }
-    }
-
-    @Bean()
+    @Bean
     open fun kafkaProducer(kafkaSettings: KafkaSettings) : KafkaProducer<String, Any> {
         val props = Properties()
-        props.put("bootstrap.servers", kafkaSettings.bootstrapServers())
+        props.put("bootstrap.servers", kafkaSettings.brokers)
         props.put("key.serializer", StringSerializer::class.java.name)
         props.put("value.serializer", JsonSerializer::class.java.name)
         return KafkaProducer(props)
@@ -45,7 +32,7 @@ open class KafkaClientConfiguration {
     @Bean(name = arrayOf("CucumberFeatureManagedConsumer"))
     open fun cucumberKafkaConsumer(kafkaSettings: KafkaSettings) : ManagedKafkaConsumer<String, CucumberFeatureEvent> {
         val props = mutableMapOf(
-                Pair("bootstrap.servers", kafkaSettings.bootstrapServers()),
+                Pair("bootstrap.servers", kafkaSettings.brokers),
                 Pair("key.deserializer", StringDeserializer::class.java.name),
                 Pair("value.deserializer", CucumberFeatureEventJsonDeserializer::class.java.name),
                 //                Pair("partition.assignment.strategy", "range"),
@@ -55,9 +42,9 @@ open class KafkaClientConfiguration {
     }
 
     @Bean(name = arrayOf("CommonFeatureManagedConsumer"))
-    open fun commonFeatureKafkaConsumer(kafkaSettings: KafkaSettings) : ManagedKafkaConsumer<String, CommonFeature> {
+    open fun commonFeatureKafkaConsumer() : ManagedKafkaConsumer<String, CommonFeature> {
         val props = mutableMapOf(
-                Pair("bootstrap.servers", kafkaSettings.bootstrapServers()),
+                Pair("bootstrap.servers", kafkaSettings.brokers),
                 Pair("key.deserializer", StringDeserializer::class.java.name),
                 Pair("value.deserializer", CommonFeatureJsonDeserializer::class.java.name),
                 //                Pair("partition.assignment.strategy", "range"),
@@ -66,4 +53,13 @@ open class KafkaClientConfiguration {
         return ManagedKafkaConsumer(props, setOf("common-features"))
     }
 
+    @Bean
+    @ConfigurationProperties(prefix = "bdd.reporting.kafka")
+    @ConditionalOnMissingBean(KafkaConfigurationAdapter::class)
+    open fun kafkaSettings() : KafkaSettings {
+        return KafkaSettings()
+    }
+
 }
+
+data class KafkaSettings(var brokers : String = System.getProperty(SPRING_EMBEDDED_KAFKA_BROKERS))

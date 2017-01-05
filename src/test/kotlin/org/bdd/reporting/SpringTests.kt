@@ -17,6 +17,7 @@ class SpringTests {
     @Autowired
     val restTemplate: TestRestTemplate? = null
 
+
     @Value("classpath:cucumber-output.json")
     private val sampleCucumberJson: Resource? = null
 

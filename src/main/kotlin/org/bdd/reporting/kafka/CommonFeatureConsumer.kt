@@ -19,7 +19,7 @@ class CommonFeatureConsumer(@Qualifier("CommonFeatureManagedConsumer")private va
 
     @PostConstruct
     fun start()  {
-        consumer.handler { onCommonFeature(it) }
+        consumer.start { onCommonFeature(it) }
     }
 
     @PreDestroy

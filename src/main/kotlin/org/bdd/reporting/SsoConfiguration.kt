@@ -1,7 +1,6 @@
 package org.bdd.reporting
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
-import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso
 import org.springframework.context.annotation.Configuration
 
 /**
@@ -9,5 +8,5 @@ import org.springframework.context.annotation.Configuration
  */
 @Configuration
 @ConditionalOnProperty(name=arrayOf("enabled"), prefix = "sso", havingValue = "true", matchIfMissing = true)
-@EnableOAuth2Sso
+//@EnableOAuth2Sso
 open class SsoConfiguration
