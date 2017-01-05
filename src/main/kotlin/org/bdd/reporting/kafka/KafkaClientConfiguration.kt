@@ -6,8 +6,8 @@ import org.apache.kafka.common.serialization.StringSerializer
 import org.bdd.reporting.JsonSerializer
 import org.bdd.reporting.data.CommonFeature
 import org.bdd.reporting.events.CucumberFeatureEvent
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.ConfigurationProperties
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.kafka.test.rule.KafkaEmbedded.SPRING_EMBEDDED_KAFKA_BROKERS
@@ -17,8 +17,7 @@ import java.util.*
  * Created by Grant Little grant@grantlittle.me
  */
 @Configuration
-open class KafkaClientConfiguration(val kafkaSettings: KafkaSettings) {
-
+open class KafkaClientConfiguration {
 
     @Bean
     open fun kafkaProducer(kafkaSettings: KafkaSettings) : KafkaProducer<String, Any> {
@@ -42,7 +41,7 @@ open class KafkaClientConfiguration(val kafkaSettings: KafkaSettings) {
     }
 
     @Bean(name = arrayOf("CommonFeatureManagedConsumer"))
-    open fun commonFeatureKafkaConsumer() : ManagedKafkaConsumer<String, CommonFeature> {
+    open fun commonFeatureKafkaConsumer(kafkaSettings: KafkaSettings) : ManagedKafkaConsumer<String, CommonFeature> {
         val props = mutableMapOf(
                 Pair("bootstrap.servers", kafkaSettings.brokers),
                 Pair("key.deserializer", StringDeserializer::class.java.name),
@@ -53,13 +52,9 @@ open class KafkaClientConfiguration(val kafkaSettings: KafkaSettings) {
         return ManagedKafkaConsumer(props, setOf("common-features"))
     }
 
-    @Bean
-    @ConfigurationProperties(prefix = "bdd.reporting.kafka")
-    @ConditionalOnMissingBean(KafkaConfigurationAdapter::class)
-    open fun kafkaSettings() : KafkaSettings {
-        return KafkaSettings()
-    }
-
 }
 
-data class KafkaSettings(var brokers : String = System.getProperty(SPRING_EMBEDDED_KAFKA_BROKERS))
+@Configuration
+@ConfigurationProperties(prefix = "bdd.reporting.kafka")
+@EnableConfigurationProperties(KafkaSettings::class)
+open class KafkaSettings(var brokers : String = System.getProperty(SPRING_EMBEDDED_KAFKA_BROKERS))
