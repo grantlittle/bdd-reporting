@@ -27,11 +27,13 @@ class CucumberFeatureConsumer(@Qualifier("CucumberFeatureManagedConsumer")privat
 
     @PostConstruct
     fun start()  {
+        log.info("Starting CucumberFeatureConsumer")
         consumer.start { onCucumberFeature(it) }
     }
 
     @PreDestroy
     fun stop() {
+        log.info("Stopping CucumberFeatureConsumer")
         consumer.stop()
     }
 

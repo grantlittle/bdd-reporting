@@ -1,5 +1,7 @@
 package org.bdd.reporting.kafka
 
+import org.apache.commons.logging.Log
+import org.apache.commons.logging.LogFactory
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.bdd.reporting.data.CommonFeature
 import org.bdd.reporting.data.CommonTag
@@ -17,18 +19,25 @@ import javax.annotation.PreDestroy
 class CommonFeatureConsumer(@Qualifier("CommonFeatureManagedConsumer")private val consumer : ManagedKafkaConsumer<String, CommonFeature>,
                             val featureRepository: FeatureRepository) {
 
+    companion object {
+        private val LOG : Log = LogFactory.getLog(CommonFeatureConsumer::class.java)
+    }
+
     @PostConstruct
     fun start()  {
+        LOG.info("Starting CommonFeatureConsumer")
         consumer.start { onCommonFeature(it) }
     }
 
     @PreDestroy
     fun stop() {
+        LOG.info("Stopping CommonFeatureConsumer")
         consumer.stop()
     }
 
 
     fun onCommonFeature(record : ConsumerRecord<String, CommonFeature>) {
+        LOG.info("Common Feature received " + record.value())
         val event = record.value()
         featureRepository.save(event)
 
