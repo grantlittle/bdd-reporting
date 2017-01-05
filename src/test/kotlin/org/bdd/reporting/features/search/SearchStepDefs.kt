@@ -45,7 +45,7 @@ class SearchStepDefs : AbstractStepDefs() {
     @When("^I search for a term$")
     fun i_search_for_a_term() {
         var count = 0
-        while (count < 3 && (response == null || response?.size == 0)) {
+        while (count < 20 && (response == null || response?.size == 0)) {
             response = restTemplate!!.getForObject("/api/1.0/search?name={name}", Array<CommonFeature>::class.java, "Feature1")
             if (response == null || (response as Array<CommonFeature>).size == 0) {
                 Thread.sleep(500)
