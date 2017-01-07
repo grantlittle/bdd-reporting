@@ -18,13 +18,19 @@ open class ManagedKafkaConsumer<K, V>(var map: Map<String, Any>,
     private val taskExecutor = Executors.newSingleThreadExecutor()
 
     fun start(handler : (ConsumerRecord<K, V>) -> Unit) {
+        LOG.info("Starting kafka consumer")
         taskExecutor.execute {
-            LOG.info("KafKa consumer")
+            LOG.info("Kafka consumer")
             val consumer = KafkaConsumer<K, V>(map)
             consumer.subscribe(topics)
             while (running) {
                 try {
-                    consumer.poll(10000)?.forEach { handler(it) }
+                    LOG.info("Polling")
+                    val result = consumer.poll(5000)
+                    LOG.info("Returned result $result")
+                    if (result != null) {
+                       result.forEach { handler(it) }
+                    }
                 } catch (e : Exception) {
                     e.printStackTrace()
                 }
