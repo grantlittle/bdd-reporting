@@ -28,9 +28,7 @@ open class ManagedKafkaConsumer<K, V>(var map: Map<String, Any>,
                     LOG.info("Polling")
                     val result = consumer.poll(5000)
                     LOG.info("Returned result $result")
-                    if (result != null) {
-                       result.forEach { handler(it) }
-                    }
+                    result?.forEach { handler(it) }
                 } catch (e : Exception) {
                     e.printStackTrace()
                 }
