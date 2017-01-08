@@ -12,7 +12,9 @@ import java.util.concurrent.Executors
 open class ManagedKafkaConsumer<K, V>(var map: Map<String, Any>,
                                       val topics : Set<String>) {
 
-    private val LOG : Log = LogFactory.getLog(ManagedKafkaConsumer::class.java)
+    companion object {
+        private val LOG : Log = LogFactory.getLog(ManagedKafkaConsumer::class.java)
+    }
 
     private var running = true
     private val taskExecutor = Executors.newSingleThreadExecutor()
@@ -20,17 +22,17 @@ open class ManagedKafkaConsumer<K, V>(var map: Map<String, Any>,
     fun start(handler : (ConsumerRecord<K, V>) -> Unit) {
         LOG.info("Starting kafka consumer")
         taskExecutor.execute {
-            LOG.info("Kafka consumer")
+            LOG.trace("Kafka consumer")
             val consumer = KafkaConsumer<K, V>(map)
             consumer.subscribe(topics)
             while (running) {
                 try {
-                    LOG.info("Polling")
+                    LOG.trace("Polling")
                     val result = consumer.poll(5000)
                     LOG.info("Returned result $result")
                     result?.forEach { handler(it) }
                 } catch (e : Exception) {
-                    e.printStackTrace()
+                    LOG.error("Exception caught while polling for message", e)
                 }
             }
             consumer.close()
