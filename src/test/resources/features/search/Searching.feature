@@ -6,7 +6,7 @@ Feature: Search
   Scenario: Search for a feature by name
 
     Given some reports have been uploaded
-    When I search by name
+    When I search by name Feature1
     Then I should see all items related to that term in the search results
 
   Scenario: Search for a feature by tag

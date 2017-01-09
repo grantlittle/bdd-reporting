@@ -43,11 +43,11 @@ class SearchStepDefs : AbstractStepDefs() {
 
     }
 
-    @When("^I search by name$")
-    fun i_search_by_name() {
+    @When("^I search by name (.*)$")
+    fun i_search_by_name(name : String) {
         var count = 0
         while (count < 20 && (response == null || response?.size == 0)) {
-            response = restTemplate!!.getForObject("/api/1.0/search?name={name}", Array<CommonFeature>::class.java, "Feature1")
+            response = restTemplate!!.getForObject("/api/1.0/search?name={name}", Array<CommonFeature>::class.java, name)
             if (response == null || (response as Array<CommonFeature>).size == 0) {
                 Thread.sleep(500)
                 count++
@@ -56,7 +56,7 @@ class SearchStepDefs : AbstractStepDefs() {
     }
 
     @When("^I search by tag (.*)$")
-    fun i_search_by_name(tagName : String) {
+    fun i_search_by_tag(tagName : String) {
         var count = 0
         while (count < 20 && (response == null || response?.size == 0)) {
             response = restTemplate!!.getForObject("/api/1.0/search?tag={name}", Array<CommonFeature>::class.java, tagName)
