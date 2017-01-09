@@ -1,5 +1,6 @@
 package org.bdd.reporting.features.search
 
+import cucumber.api.PendingException
 import cucumber.api.java.en.Given
 import cucumber.api.java.en.Then
 import cucumber.api.java.en.When
@@ -42,8 +43,8 @@ class SearchStepDefs : AbstractStepDefs() {
 
     }
 
-    @When("^I search for a term$")
-    fun i_search_for_a_term() {
+    @When("^I search by name$")
+    fun i_search_by_name() {
         var count = 0
         while (count < 20 && (response == null || response?.size == 0)) {
             response = restTemplate!!.getForObject("/api/1.0/search?name={name}", Array<CommonFeature>::class.java, "Feature1")
@@ -54,9 +55,48 @@ class SearchStepDefs : AbstractStepDefs() {
         }
     }
 
+    @When("^I search by tag (.*)$")
+    fun i_search_by_name(tagName : String) {
+        var count = 0
+        while (count < 20 && (response == null || response?.size == 0)) {
+            response = restTemplate!!.getForObject("/api/1.0/search?tag={name}", Array<CommonFeature>::class.java, tagName)
+            if (response == null || (response as Array<CommonFeature>).size == 0) {
+                Thread.sleep(500)
+                count++
+            }
+        }
+    }
+
+
     @Then("^I should see all items related to that term in the search results$")
     fun i_should_see_all_items_related_to_that_term_in_the_search_results() {
         assertEquals(1, response?.size)
+    }
+
+    @Given("^the default test set has been uploaded$")
+    @Throws(Throwable::class)
+    fun the_default_test_set_has_been_uploaded() {
+        some_reports_have_been_uploaded()
+    }
+
+    @When("^I search by feature tag$")
+    @Throws(Throwable::class)
+    fun i_search_by_feature_tag() {
+        var count = 0
+        while (count < 20 && (response == null || response?.size == 0)) {
+            response = restTemplate!!.getForObject("/api/1.0/search?tag={name}", Array<CommonFeature>::class.java, "Feature1")
+            if (response == null || (response as Array<CommonFeature>).size == 0) {
+                Thread.sleep(500)
+                count++
+            }
+        }
+    }
+
+    @Then("^I should get the feature ([^\"]*) returned$")
+    @Throws(Throwable::class)
+    fun i_should_get_the_returned(featureName: String) {
+        assertEquals(1, response!!.size)
+        assertEquals(featureName, response!![0].name)
     }
 
 }
