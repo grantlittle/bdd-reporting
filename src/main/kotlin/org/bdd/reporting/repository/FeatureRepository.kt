@@ -19,8 +19,7 @@ interface FeatureRepository : ElasticsearchRepository<CommonFeature, String> {
                     { "match": { "name": "?0" } }
                   ]
               }
-          },
-          "size" : 1
+          }
         }
     """)
     fun findByName(name : String) : Set<CommonFeature>
@@ -34,10 +33,23 @@ interface FeatureRepository : ElasticsearchRepository<CommonFeature, String> {
                     { "match": { "tags.name": "?0" } }
                   ]
               }
-          },
-          "size" : 1
+          }
         }
     """)
     fun findByTag(tag : String) : Set<CommonFeature>
+
+    @Query("""
+        {
+           "query": {
+                "multi_match": {
+                    "query":  "Scenario 1",
+                    "type":   "most_fields",
+                    "fields": [ "name", "description", "elements.name", "elements.description", "elements.steps.name"]
+                }
+            }
+        }
+    """)
+    fun generalSearch() : Set<CommonFeature>
+
 
 }

@@ -5,7 +5,7 @@ Feature: Search
 
   Scenario: Search for a feature by name
 
-    Given some reports have been uploaded
+    Given the default test set has been uploaded
     When I search by name Feature1
     Then I should see all items related to that term in the search results
 
@@ -14,3 +14,11 @@ Feature: Search
     Given the default test set has been uploaded
     When I search by tag @tag1
     Then I should get the feature Feature1 returned
+
+#  @ignore
+#  Scenario: Search for a feature by text
+#
+#    Given the default test set has been uploaded
+#    When I search by text Scenario 1
+#    Then I should get the feature Feature1 returned
+

@@ -11,7 +11,9 @@ import org.springframework.kafka.test.rule.KafkaEmbedded
  */
 @RunWith(Cucumber::class)
 @CucumberOptions(features = arrayOf("src/test/resources/features/search"),
-        glue = arrayOf("org.bdd.reporting.features.search", "cucumber.api.spring"))
+        glue = arrayOf(
+                "org.bdd.reporting.features.search",
+                "cucumber.api.spring"))
 class SearchTests {
     companion object {
         @ClassRule

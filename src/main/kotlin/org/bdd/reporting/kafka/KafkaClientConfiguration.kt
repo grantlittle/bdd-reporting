@@ -52,9 +52,10 @@ open class KafkaClientConfiguration {
         return ManagedKafkaConsumer(props, setOf("common-features"))
     }
 
+
 }
 
 @Configuration
 @ConfigurationProperties(prefix = "bdd.reporting.kafka")
 @EnableConfigurationProperties(KafkaSettings::class)
-open class KafkaSettings(var brokers : String = System.getProperty(SPRING_EMBEDDED_KAFKA_BROKERS))
+open class KafkaSettings(var brokers : String = System.getProperty(SPRING_EMBEDDED_KAFKA_BROKERS) ?: "")

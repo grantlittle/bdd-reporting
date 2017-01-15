@@ -14,18 +14,114 @@
     ],
     "elements": [
       {
-        "id" : "scenario1",
-        "name" : "Scenario 1",
-        "line" : 1,
-        "description" : "Description of Scenario 1",
-        "type" : "Scenario",
-        "keyword" : "Given",
+        "id": "scenario1",
+        "name": "Scenario 1",
+        "line": 1,
+        "description": "Description of Scenario 1",
+        "type": "Scenario",
+        "keyword": "Given",
         "tags": [
           {
             "name": "@scenariotag1"
           }
+        ],
+        "steps": [
+          {
+            "name": "Given I do something",
+            "keyword": "Given",
+            "result": {
+              "status": "passed"
+            }
+          },
+          {
+            "name": "When I do something else",
+            "keyword": "When",
+            "result": {
+              "status": "passed"
+            }
+          },
+          {
+            "name": "Then test something",
+            "keyword": "Then",
+            "result": {
+              "status": "passed"
+            }
+          }
+        ]
+      },
+      {
+        "id": "scenario2",
+        "name": "Scenario 2",
+        "line": 1,
+        "description": "Description of Scenario 2",
+        "type": "Scenario",
+        "keyword": "Given",
+        "tags": [
+          {
+            "name": "@scenariotag2"
+          }
+        ],
+        "steps": [
+          {
+            "name": "Given I do something 2",
+            "keyword": "Given",
+            "result": {
+              "status": "failed"
+            }
+          },
+          {
+            "name": "When I do something else 2",
+            "keyword": "When",
+            "result": {
+              "status": "failed"
+            }
+          },
+          {
+            "name": "Then test something 2",
+            "keyword": "Then",
+            "result": {
+              "status": "failed"
+            }
+          }
+        ]
+      },
+      {
+        "id": "scenario3",
+        "name": "Scenario 3",
+        "line": 1,
+        "description": "Description of Scenario 3",
+        "type": "Scenario",
+        "keyword": "Given",
+        "tags": [
+          {
+            "name": "@scenariotag3"
+          }
+        ],
+        "steps": [
+          {
+            "name": "Given I do something 3",
+            "keyword": "Given",
+            "result": {
+              "status": "failed"
+            }
+          },
+          {
+            "name": "When I do something else 3",
+            "keyword": "When",
+            "result": {
+              "status": "failed"
+            }
+          },
+          {
+            "name": "Then test something 3",
+            "keyword": "Then",
+            "result": {
+              "status": "failed"
+            }
+          }
         ]
       }
+
     ]
   }
 ]
