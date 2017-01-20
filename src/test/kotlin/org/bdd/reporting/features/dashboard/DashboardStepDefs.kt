@@ -1,6 +1,6 @@
 package org.bdd.reporting.features.dashboard
 
-import cucumber.api.PendingException
+import cucumber.api.DataTable
 import cucumber.api.java.en.Given
 import cucumber.api.java.en.Then
 import cucumber.api.java.en.When
@@ -8,6 +8,7 @@ import org.apache.commons.io.IOUtils
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 import org.bdd.reporting.AbstractStepDefs
+import org.bdd.reporting.repository.FeatureOverview
 import org.junit.Assert.assertEquals
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -34,6 +35,8 @@ open class DashboardStepDefs : AbstractStepDefs() {
 
     @Value("classpath:pickles-output.json")
     var samplePicklesJson : Resource? = null
+
+    private var overviews : Array<FeatureOverview>? = null
 
 
     @Given("^a cucumber json report file$")
@@ -83,15 +86,23 @@ open class DashboardStepDefs : AbstractStepDefs() {
     @When("^the dashboard is displayed$")
     @Throws(Throwable::class)
     fun the_dashboard_is_displayed() {
-//        restTemplate!!.getForObject("")
-        // Write code here that turns the phrase above into concrete actions
-        throw PendingException()
+        var count = 0
+        while (count < 20 && (overviews == null || overviews?.size == 0)) {
+            overviews = restTemplate!!.getForObject("/api/overview/1.0/features", Array<FeatureOverview>::class.java)
+            if (overviews == null || (overviews as Array<FeatureOverview>).size == 0) {
+                Thread.sleep(500)
+                count++
+            }
+        }
+
     }
 
     @Then("^the following data should be displayed$")
     @Throws(Throwable::class)
-    fun the_following_data_should_be_displayed(data : List<Map<String, String>>) {
-        // Write code here that turns the phrase above into concrete actions
-        throw PendingException()
+    fun the_following_data_should_be_displayed(data : DataTable) {
+        val map = data.asMap(String::class.java, Int::class.java)
+        assertEquals(map["scenariosPassed"], overviews!![0].passedScenarios)
+        assertEquals(map["scenariosFailed"], overviews!![0].failedScenarios)
+        assertEquals(map["scenariosIgnored"], overviews!![0].ignoredScenarios)
     }
 }

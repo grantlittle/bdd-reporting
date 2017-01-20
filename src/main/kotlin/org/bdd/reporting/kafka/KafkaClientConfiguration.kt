@@ -37,7 +37,7 @@ open class KafkaClientConfiguration {
                 //                Pair("partition.assignment.strategy", "range"),
                 Pair("group.id", "cucumber-common")
         )
-        return ManagedKafkaConsumer(props, setOf("cucumber-features"))
+        return ManagedKafkaConsumer("cucumber-common", props, setOf("cucumber-features"))
     }
 
     @Bean(name = arrayOf("CommonFeatureManagedConsumer"))
@@ -49,7 +49,7 @@ open class KafkaClientConfiguration {
                 //                Pair("partition.assignment.strategy", "range"),
                 Pair("group.id", "common-elastic")
         )
-        return ManagedKafkaConsumer(props, setOf("common-features"))
+        return ManagedKafkaConsumer("common-elastic", props, setOf("common-features"))
     }
 
 

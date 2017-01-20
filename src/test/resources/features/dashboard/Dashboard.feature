@@ -7,7 +7,6 @@ Feature: BDD Reporting Dashboard
     Given the default test set has been uploaded
     When the dashboard is displayed
     Then the following data should be displayed
-    | state   | count   |
-    | passed  | 1       |
-    | failed  | 1       |
-    | ignored | 1       |
+    | scenariosPassed  | 1       |
+    | scenariosFailed  | 1       |
+    | scenariosPending | 1       |

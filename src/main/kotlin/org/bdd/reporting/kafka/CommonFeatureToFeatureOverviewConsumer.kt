@@ -28,7 +28,7 @@ open class CommonFeatureToFeatureOverviewConsumer(val kafkaSettings: KafkaSettin
                 Pair("value.deserializer", CommonFeatureJsonDeserializer::class.java.name),
                 Pair("group.id", "common->featureOverview")
         )
-        consumer = ManagedKafkaConsumer(props, setOf("common-features"))
+        consumer = ManagedKafkaConsumer("common->featureOverview", props, setOf("common-features"))
         consumer?.start { handle(it.value()) }
 
     }

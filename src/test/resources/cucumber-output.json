@@ -102,21 +102,21 @@
             "name": "Given I do something 3",
             "keyword": "Given",
             "result": {
-              "status": "failed"
+              "status": "pending"
             }
           },
           {
             "name": "When I do something else 3",
             "keyword": "When",
             "result": {
-              "status": "failed"
+              "status": "pending"
             }
           },
           {
             "name": "Then test something 3",
             "keyword": "Then",
             "result": {
-              "status": "failed"
+              "status": "pending"
             }
           }
         ]

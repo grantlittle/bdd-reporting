@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController
  * Created by Grant Little grant@grantlittle.me
  */
 @RestController
-@RequestMapping("/api/featureoverview/1.0")
-class FeatureOverviewRestController(val repository: FeatureOverviewRepository) {
+@RequestMapping("/api/overview/1.0")
+class OverviewRestController(val repository: FeatureOverviewRepository) {
 
-    @GetMapping
-    fun get() : Iterable<FeatureOverview> {
-        return repository.findAll()
+    @GetMapping("/features")
+    fun get() : List<FeatureOverview> {
+        return repository.findAll().toList()
     }
 
 
