@@ -34,7 +34,7 @@ package org.bdd.reporting.kafka
 //                Pair("bootstrap.servers", kafkaSettings.brokers),
 //                Pair("key.deserializer", StringDeserializer::class.java.name),
 //                Pair("value.deserializer", CucumberFeatureEventJsonDeserializer::class.java.name),
-//                //                Pair("partition.assignment.strategy", "range"),
+//            //                Pair("partition.assignment.strategy", "range"),
 //                Pair("group.id", "cucumber-common")
 //        )
 //        return ManagedKafkaConsumer(props, setOf("cucumber-features"))
@@ -46,7 +46,7 @@ package org.bdd.reporting.kafka
 //                Pair("bootstrap.servers", kafkaSettings.brokers),
 //                Pair("key.deserializer", StringDeserializer::class.java.name),
 //                Pair("value.deserializer", CommonFeatureJsonDeserializer::class.java.name),
-//                //                Pair("partition.assignment.strategy", "range"),
+//            //                Pair("partition.assignment.strategy", "range"),
 //                Pair("group.id", "common-elastic")
 //        )
 //        return ManagedKafkaConsumer(props, setOf("common-features"))
