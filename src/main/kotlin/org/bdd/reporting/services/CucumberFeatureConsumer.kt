@@ -1,15 +1,13 @@
-package org.bdd.reporting.kafka
+package org.bdd.reporting.services
 
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
-import org.apache.kafka.clients.consumer.ConsumerRecord
-import org.apache.kafka.clients.producer.KafkaProducer
-import org.apache.kafka.clients.producer.ProducerRecord
 import org.bdd.reporting.data.CommonFeature
 import org.bdd.reporting.data.CommonScenario
 import org.bdd.reporting.data.CommonStep
 import org.bdd.reporting.data.CommonTag
 import org.bdd.reporting.events.CucumberFeatureEvent
+import org.bdd.reporting.events.EventBus
 import org.bdd.reporting.web.rest.cucumber.*
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
@@ -20,34 +18,29 @@ import javax.annotation.PreDestroy
  * Created by Grant Little grant@grantlittle.me
  */
 @Service
-class CucumberFeatureConsumer(@Qualifier("CucumberFeatureManagedConsumer")private val consumer : ManagedKafkaConsumer<String, CucumberFeatureEvent>,
-                              private val producer : KafkaProducer<String, Any>) {
+class CucumberFeatureConsumer(@Qualifier("DbEventBus")private val eventBus : EventBus) {
 
     private val log : Log = LogFactory.getLog(CucumberFeatureConsumer::class.java)
 
     @PostConstruct
     fun start()  {
         log.info("Starting CucumberFeatureConsumer")
-        consumer.start { onCucumberFeature(it) }
+        eventBus.register<CucumberFeatureEvent>("cucumber-features", {onCucumberFeature(it) })
     }
 
     @PreDestroy
     fun stop() {
         log.info("Stopping CucumberFeatureConsumer")
-        consumer.stop()
     }
 
 
-    fun onCucumberFeature(record : ConsumerRecord<String, CucumberFeatureEvent>) {
+    fun onCucumberFeature(event : CucumberFeatureEvent) {
 
         if (log.isInfoEnabled) {
-            log.info("Received ConsumerRecord with contents ${record.value()}")
+            log.info("Received ConsumerRecord with contents $event")
         }
-        val event = record.value()
-
-        val commonFeature = map(event!!.feature as CucumberFeature)
-        producer.send(ProducerRecord<String, Any>("common-features", event.uuid, commonFeature))
-
+        val commonFeature = map(event.feature as CucumberFeature)
+        eventBus.send("common-features", event.uuid, commonFeature)
     }
 
     fun tags(input : Set<CucumberTag>?) : Set<CommonTag> {

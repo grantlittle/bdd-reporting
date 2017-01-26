@@ -8,6 +8,6 @@ import org.springframework.core.annotation.Order
  * Created by Grant Little grant@grantlittle.me
  */
 @Configuration
-@Order(-1001)
+//@Order(-1001)
 @ComponentScan
 open class ServerTestingConfiguration

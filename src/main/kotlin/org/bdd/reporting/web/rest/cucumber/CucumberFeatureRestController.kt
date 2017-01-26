@@ -1,10 +1,10 @@
 package org.bdd.reporting.web.rest.cucumber
 
 import org.apache.commons.logging.LogFactory
-import org.apache.kafka.clients.producer.KafkaProducer
-import org.apache.kafka.clients.producer.ProducerRecord
 import org.bdd.reporting.events.CucumberFeatureEvent
+import org.bdd.reporting.events.EventBus
 import org.springframework.web.bind.annotation.*
+import java.util.*
 
 /**
  * Created by Grant Little grant@grantlittle.me
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*
 @Suppress("unused")
 @RestController
 @RequestMapping("/api/1.0/features/cucumber")
-class CucumberFeatureRestController(val kafkaProducer : KafkaProducer<String, Any>) {
+class CucumberFeatureRestController(val eventBus : EventBus) {
 
     init {
         if (LOG.isInfoEnabled) LOG.info("CucumberFeatureRestController starting")
@@ -30,11 +30,11 @@ class CucumberFeatureRestController(val kafkaProducer : KafkaProducer<String, An
         }
 
         features
-                .map {
-                    val id = it.id ?: "unknown".hashCode()
-                    ProducerRecord<String, Any>("cucumber-features", id.toString(), CucumberFeatureEvent(feature = it))
-                }
-                .forEach { LOG.info("Sending ${it.value()} to kafkaProducer"); kafkaProducer.send(it) }
+            .forEach {
+                val id = it.id ?: UUID.randomUUID().toString()
+                LOG.info("Sending $it to event bus")
+                eventBus.send("cucumber-features", id, CucumberFeatureEvent(feature = it))
+            }
 
     }
 

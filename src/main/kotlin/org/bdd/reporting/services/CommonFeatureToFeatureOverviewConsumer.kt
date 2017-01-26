@@ -1,11 +1,12 @@
-package org.bdd.reporting.kafka
+package org.bdd.reporting.services
 
-import org.apache.kafka.common.serialization.StringDeserializer
 import org.bdd.reporting.data.CommonFeature
 import org.bdd.reporting.data.CommonScenario
 import org.bdd.reporting.data.CommonStep
+import org.bdd.reporting.events.EventBus
 import org.bdd.reporting.repository.FeatureOverview
 import org.bdd.reporting.repository.FeatureOverviewRepository
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
@@ -15,27 +16,25 @@ import javax.annotation.PreDestroy
  */
 @Suppress("unused")
 @Service
-open class CommonFeatureToFeatureOverviewConsumer(val kafkaSettings: KafkaSettings,
+open class CommonFeatureToFeatureOverviewConsumer(@Qualifier("DbEventBus")val eventBus: EventBus,
                                                   val featureOverviewRepository: FeatureOverviewRepository) {
-
-    var consumer : ManagedKafkaConsumer<String, CommonFeature>? = null
 
     @PostConstruct
     fun start()  {
-        val props = mutableMapOf(
-                Pair("bootstrap.servers", kafkaSettings.brokers),
-                Pair("key.deserializer", StringDeserializer::class.java.name),
-                Pair("value.deserializer", CommonFeatureJsonDeserializer::class.java.name),
-                Pair("group.id", "common->featureOverview")
-        )
-        consumer = ManagedKafkaConsumer(props, setOf("common-features"))
-        consumer?.start { handle(it.value()) }
+//        val props = mutableMapOf(
+//                Pair("bootstrap.servers", kafkaSettings.brokers),
+//                Pair("key.deserializer", StringDeserializer::class.java.name),
+//                Pair("value.deserializer", CommonFeatureJsonDeserializer::class.java.name),
+//                Pair("group.id", "common->featureOverview")
+//        )
+//        consumer = ManagedKafkaConsumer(props, setOf("common-features"))
+//        consumer?.start { handle(it.value()) }
+        eventBus.register<CommonFeature>("common-features", { handle(it)})
 
     }
 
     @PreDestroy
     fun stop() {
-        consumer?.stop()
     }
 
     internal fun handle(commonFeature : CommonFeature) {
