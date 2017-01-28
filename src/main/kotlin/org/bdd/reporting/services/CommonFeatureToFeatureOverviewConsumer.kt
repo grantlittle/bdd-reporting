@@ -21,14 +21,6 @@ open class CommonFeatureToFeatureOverviewConsumer(@Qualifier("DbEventBus")val ev
 
     @PostConstruct
     fun start()  {
-//        val props = mutableMapOf(
-//                Pair("bootstrap.servers", kafkaSettings.brokers),
-//                Pair("key.deserializer", StringDeserializer::class.java.name),
-//                Pair("value.deserializer", CommonFeatureJsonDeserializer::class.java.name),
-//                Pair("group.id", "common->featureOverview")
-//        )
-//        consumer = ManagedKafkaConsumer(props, setOf("common-features"))
-//        consumer?.start { handle(it.value()) }
         eventBus.register<CommonFeature>("common-features", { handle(it)})
 
     }
