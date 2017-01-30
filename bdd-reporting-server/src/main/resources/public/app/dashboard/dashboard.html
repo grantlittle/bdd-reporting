@@ -1,0 +1,20 @@
+
+<div class="row">
+    <div class="col-md-3">
+        <h1 class="dash">Total<br> {{ stats.totalScenarios }}</h1>
+    </div>
+    <div class="col-md-3">
+        <h1 class="dash text-success">Passed<br> {{ stats.passedScenarios }}</h1>
+    </div>
+    <div class="col-md-3">
+        <h1 class="dash text-warning">Pending<br> {{ stats.pendingScenarios }}</h1>
+    </div>
+    <div class="col-md-3">
+        <h1 class="dash text-danger">Failed<br> {{ stats.failedScenarios }}</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div ng-show="stats.totalScenarios > 0" google-chart chart="statsChart" style="height:800px; width:100%;"></div>
+    </div>
+</div>

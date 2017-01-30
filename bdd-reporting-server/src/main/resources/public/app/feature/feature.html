@@ -1,0 +1,106 @@
+<h3>Feature "{{ featureInfo.name }}"</h3>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <strong>Last Execution:</strong>
+                        <span>{{ featureInfo.timestamp }}</span>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">{{ statsOverview.total }}</span>
+                        <strong>Total:</strong>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">{{ statsOverview.failed }}</span>
+                        <strong>Failed:</strong>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">{{ statsOverview.passed }}</span>
+                        <strong>Passed:</strong>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge">{{ statsOverview.pending }}</span>
+                        <strong>Pending:</strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div ng-show="filteredScenarios.length > 0" google-chart chart="chart" style="height:400px; width:100%;"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div ng-show="filteredScenarios.length > 0" google-chart chart="scenariosHistoryChart" style="height:400px; width:100%;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Filters</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="scenario_name_filter">Scenario Name:</label>
+                                    <input class="form-control" id="scenario_name_filter" type="text" ng-model="search.name">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="labels">Labels:</label>
+                                    <ui-select class="form-control" id="labels" multiple ng-model="selections.selectedLabels" theme="bootstrap" close-on-select="false" style="width: 100%;" title="Choose a label">
+                                        <ui-select-match placeholder="Select labels...">{{$item}}</ui-select-match>
+                                        <ui-select-choices repeat="label in availableLabels | filter:$select.search">
+                                            {{label}}
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="tags">Tags:</label>
+                                    <ui-select class="form-control" id="tags" multiple ng-model="selections.selectedTags" theme="bootstrap" close-on-select="false" style="width: 100%;" title="Choose a tag">
+                                        <ui-select-match placeholder="Select tags...">{{$item}}</ui-select-match>
+                                        <ui-select-choices repeat="tag in availableTags | filter:$select.search" refresh="updateAvailableTags" refresh-delay="0">
+                                            {{tag}}
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="well" ng-bind-html="featureInfo.description" ng-show="featureInfo.description">
+        </div>
+
+
+        <div class="row" ng-repeat="scenario in ( scenarios | filter:nameFilter | filter:labelFilter | filter:tagFilter | orderBy: 'scenarioIndex') as filteredScenarios ">
+
+            <div class="col-md-12">
+                <div class="panel" ng-class="scenario.overallState === 'PENDING' ? 'panel-warning' : (scenario.overallState === 'FAILED' ? 'panel-danger' : 'panel-success')">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{scenario.scenarioIndex + 1}}) {{ scenario.name }}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="well" ng-bind-html="scenario.description" ng-show="scenario.description">
+                        </div>
+                        <div ng-repeat="step in scenario.steps">
+                            {{ step.keyword }}&nbsp;{{ step.name }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

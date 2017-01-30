@@ -27,3 +27,6 @@ src/main/resources/public/
 src/main/resources/templates/
 /data/
 data/
+/.idea/
+/bdd-reporting-server/derby.log
+/bdd-reporting-server/data/
