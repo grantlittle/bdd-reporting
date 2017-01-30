@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<teamcity-plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:schemas-jetbrains-com:teamcity-plugin-v1-xml">
+  <info>
+    <name>bdd-reporting-teamcity-plugin</name>
+    <display-name>bdd-reporting-teamcity-plugin</display-name>
+    <version>@Version@</version>
+    <description>Sends output from BDD reporting tools to a central server</description>
+    <download-url>Plugin download URL</download-url>
+    <email>grant@grantlittle.me</email>
+    <vendor>
+      <name>Grant Little</name>
+      <url>http://grantlittle.me</url>
+    </vendor>
+  </info>
+  <deployment use-separate-classloader="true" />
+</teamcity-plugin>
