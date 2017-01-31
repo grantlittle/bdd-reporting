@@ -1,7 +1,7 @@
 package org.bdd.reporting.web.rest.search
 
 import org.bdd.reporting.data.CommonFeature
-import org.bdd.reporting.repository.FeatureRepository
+import org.bdd.reporting.repository.elasticsearch.FeatureRepository
 import org.springframework.util.StringUtils
 import org.springframework.web.bind.annotation.*
 

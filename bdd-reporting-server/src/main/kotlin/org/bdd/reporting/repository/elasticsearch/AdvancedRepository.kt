@@ -1,4 +1,4 @@
-package org.bdd.reporting.repository
+package org.bdd.reporting.repository.elasticsearch
 
 import org.bdd.reporting.data.CommonFeature
 import org.elasticsearch.index.query.QueryBuilders.boolQuery

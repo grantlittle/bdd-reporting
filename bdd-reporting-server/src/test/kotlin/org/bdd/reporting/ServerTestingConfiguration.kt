@@ -1,8 +1,8 @@
 package org.bdd.reporting
 
+import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
-import org.springframework.core.annotation.Order
 
 /**
  * Created by Grant Little grant@grantlittle.me
@@ -10,4 +10,5 @@ import org.springframework.core.annotation.Order
 @Configuration
 //@Order(-1001)
 @ComponentScan
+@SpringBootApplication
 open class ServerTestingConfiguration

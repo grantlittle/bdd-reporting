@@ -1,7 +1,7 @@
 package org.bdd.reporting.web.rest.dash
 
-import org.bdd.reporting.repository.FeatureOverview
-import org.bdd.reporting.repository.FeatureOverviewRepository
+import org.bdd.reporting.repository.elasticsearch.FeatureOverview
+import org.bdd.reporting.repository.elasticsearch.FeatureOverviewRepository
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController

@@ -1,4 +1,4 @@
-package org.bdd.reporting.repository
+package org.bdd.reporting.repository.elasticsearch
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import org.springframework.data.annotation.Id

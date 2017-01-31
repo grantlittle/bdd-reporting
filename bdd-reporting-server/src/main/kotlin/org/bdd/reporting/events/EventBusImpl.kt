@@ -2,7 +2,7 @@ package org.bdd.reporting.events
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.bdd.reporting.data.DbEvent
-import org.bdd.reporting.repository.EventRepository
+import org.bdd.reporting.repository.jpa.EventRepository
 import org.springframework.stereotype.Service
 import java.util.*
 

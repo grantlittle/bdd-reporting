@@ -4,8 +4,8 @@ import org.bdd.reporting.data.CommonFeature
 import org.bdd.reporting.data.CommonScenario
 import org.bdd.reporting.data.CommonStep
 import org.bdd.reporting.events.EventBus
-import org.bdd.reporting.repository.FeatureOverview
-import org.bdd.reporting.repository.FeatureOverviewRepository
+import org.bdd.reporting.repository.elasticsearch.FeatureOverview
+import org.bdd.reporting.repository.elasticsearch.FeatureOverviewRepository
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 import javax.annotation.PostConstruct

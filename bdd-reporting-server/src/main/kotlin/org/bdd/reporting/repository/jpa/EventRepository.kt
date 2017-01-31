@@ -1,4 +1,4 @@
-package org.bdd.reporting.repository
+package org.bdd.reporting.repository.jpa
 
 import org.bdd.reporting.data.DbEvent
 import org.bdd.reporting.data.DbEventKey

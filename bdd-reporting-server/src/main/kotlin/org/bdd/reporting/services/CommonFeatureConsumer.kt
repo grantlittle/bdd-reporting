@@ -4,7 +4,7 @@ import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 import org.bdd.reporting.data.CommonFeature
 import org.bdd.reporting.events.EventBus
-import org.bdd.reporting.repository.FeatureRepository
+import org.bdd.reporting.repository.elasticsearch.FeatureRepository
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 import javax.annotation.PostConstruct
