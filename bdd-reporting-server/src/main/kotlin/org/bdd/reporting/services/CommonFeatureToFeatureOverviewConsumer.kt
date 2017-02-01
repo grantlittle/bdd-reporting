@@ -38,16 +38,22 @@ open class CommonFeatureToFeatureOverviewConsumer(@Qualifier("DbEventBus")val ev
         val result = scenarios(commonFeature.scenarios)
         return FeatureOverview(
                 id = commonFeature.id,
+                timestamp = commonFeature.timestamp,
                 description = commonFeature.description,
                 name = commonFeature.name,
                 passedScenarios = result.first["passed"] ?: 0,
                 failedScenarios = result.first["failed"] ?: 0,
                 pendingScenarios = result.first["pending"] ?: 0,
                 ignoredScenarios = result.first["ignored"] ?: 0,
+                totalScenarios = result.first["total"] ?: 0,
                 passedSteps = result.second["passed"] ?: 0,
                 failedSteps = result.second["failed"] ?: 0,
                 pendingSteps = result.second["pending"] ?: 0,
-                ignoredSteps = result.second["ignored"] ?: 0
+                ignoredSteps = result.second["ignored"] ?: 0,
+                totalSteps = result.second["total"] ?: 0,
+                overallStatus = determineOverallStatus(result.first),
+                labels = commonFeature.labels ?: mutableSetOf(),
+                tags = commonFeature.tags
                 )
     }
 
@@ -57,6 +63,7 @@ open class CommonFeatureToFeatureOverviewConsumer(@Qualifier("DbEventBus")val ev
         scenarios.map {
             val output = steps(it.steps)
             incrementStepStats(output, stepStats)
+            increment("total", scenarioStats)
             when (getScenarioStatus(output)) {
                 "passed" -> increment("passed", scenarioStats)
                 "failed" -> increment("failed", scenarioStats)
@@ -86,6 +93,7 @@ open class CommonFeatureToFeatureOverviewConsumer(@Qualifier("DbEventBus")val ev
     internal fun steps(steps : List<CommonStep>) : Map<String, Int> {
         val map = mutableMapOf<String, Int>()
         steps.forEach {
+            increment("total", map)
             when (it.result) {
                 "passed" -> increment("passed", map)
                 "failed" -> increment("failed", map)
@@ -100,5 +108,21 @@ open class CommonFeatureToFeatureOverviewConsumer(@Qualifier("DbEventBus")val ev
         val count  = if (map[name] != null) map[name] as Int else 0
         map[name] = count + 1
 
+    }
+
+    internal fun determineOverallStatus(data : Map<String, Int>) : String {
+        if (data["failed"] ?: 0 > 0) {
+            return "failed"
+        }
+        else if (data["pending"] ?: 0 > 0) {
+            return "pending"
+        }
+        else if (data["passed"] ?: 0 > 0) {
+            return "passed"
+        }
+        else if (data["ignored"] ?: 0 > 0) {
+            return "ignored"
+        }
+        throw IllegalStateException("Could not determine over state with data $data")
     }
 }

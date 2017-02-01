@@ -22,6 +22,10 @@
             initChart(calculateOverviewStats(newVal));
         });
 
+        $scope.getOverallStatus = function(overview) {
+
+        };
+
 
         $scope.featureNameFilter = function(item) {
 
@@ -73,7 +77,7 @@
 
 
         var getFeatures = function() {
-            var url = "/api/1.0/features/overviews?";
+            var url = "/api/featureoverviews/1.0/?";
             if ($scope.selections.selectedLabels) {
                 url += "labels=" + $scope.selections.selectedLabels
             }
@@ -84,9 +88,9 @@
                 .then(function(response) {
                     if (response) {
                         $scope.features = response.data;
-                        $scope.features.data = response.data;
-                        updateAvailableLabels(response.data);
-                        updateAvailableTags(response.data);
+                        // $scope.features.data = response.data;
+                        // updateAvailableLabels(response.data);
+                        // updateAvailableTags(response.data);
                     }
                 })
         };
@@ -97,15 +101,17 @@
                 "passed": 0,
                 "failed": 0,
                 "pending": 0,
+                "ignored" : 0,
                 "total": 0
             };
             if (data.length > 0) {
                 for (var index in data) {
                     var feature = data[index];
-                    statsOverview.passed += feature.scenariosPassed;
-                    statsOverview.pending += feature.scenariosPending;
-                    statsOverview.failed += feature.scenariosFailed;
-                    statsOverview.total += feature.scenariosTotal;
+                    statsOverview.passed += feature.passedScenarios;
+                    statsOverview.pending += feature.pendingScenarios;
+                    statsOverview.failed += feature.failedScenarios;
+                    statsOverview.ignored += feature.ignoredScenarios;
+                    statsOverview.total += (feature.totalScenarios);
                 }
             }
             $scope.statsOverview = statsOverview;

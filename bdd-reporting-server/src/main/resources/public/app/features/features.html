@@ -17,6 +17,10 @@
                         <strong>Passed:</strong>
                     </li>
                     <li class="list-group-item">
+                        <span class="badge">{{ statsOverview.ignored }}</span>
+                        <strong>Ignored:</strong>
+                    </li>
+                    <li class="list-group-item">
                         <span class="badge">{{ statsOverview.pending }}</span>
                         <strong>Pending:</strong>
                     </li>
@@ -80,15 +84,19 @@
                         <th>Total</th>
                         <th>Passed</th>
                         <th>Pending</th>
+                        <th>Failed</th>
+                        <th>Ignored</th>
                         <th>Status</th>
                     </tr>
                     </thead>
                     <tbody>
-                            <tr ng-repeat="feature in (features | filter:featureNameFilter | filter:labelFilter | filter:tagFilter | orderBy: 'status') as filteredFeatures" ng-class="feature.scenariosFailed > 0 ? 'danger' : (feature.scenariosPending > 0 ? 'warning' : 'success')" ng-click="go(feature.featureId)">
+                            <tr ng-repeat="feature in (features | filter:featureNameFilter | filter:labelFilter | filter:tagFilter | orderBy: 'status') as filteredFeatures" ng-class="feature.failedScenarios > 0 ? 'danger' : (feature.pendingScenarios > 0 ? 'warning' : 'success')" ng-click="go(feature.featureId)">
                                 <td>{{feature.name}}</td>
-                                <td>{{feature.scenariosTotal}}</td>
-                                <td>{{feature.scenariosPassed}}</td>
-                                <td>{{feature.scenariosPending}}</td>
+                                <td>{{feature.totalScenarios}}</td>
+                                <td>{{feature.passedScenarios}}</td>
+                                <td>{{feature.pendingScenarios}}</td>
+                                <td>{{feature.failedScenarios}}</td>
+                                <td>{{feature.ignoredScenarios}}</td>
                                 <td>{{feature.overallStatus}}</td>
                             </tr>
                     </tbody>
