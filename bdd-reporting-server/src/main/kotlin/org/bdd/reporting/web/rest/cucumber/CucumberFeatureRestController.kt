@@ -40,14 +40,17 @@ class CucumberFeatureRestController(val eventBus : EventBus) {
 
 
     @PutMapping(consumes = arrayOf("application/json"), value = "/{labels}")
-    fun saveFeatures(@RequestBody features: List<CucumberFeature>, @PathVariable("labels") labels: String) {
+    fun saveFeatures(@RequestBody features: List<CucumberFeature>, @PathVariable("labels") labelsAsString: String) {
         if (LOG.isInfoEnabled) {
             LOG.info("Adding features data to features " + features)
         }
 
-//        features
-//                .map { ProducerRecord<String, Any>("cucumber-features", it.id, CucumberFeatureEvent(labels = labels, feature = it)) }
-//                .forEach { producer.send(it) }
+        features
+                .forEach {
+                    val id = it.id ?: UUID.randomUUID().toString()
+                    LOG.info("Sending $it to event bus")
+                    eventBus.send("cucumber-features", id, CucumberFeatureEvent(feature = it, labels = labelsAsString))
+                }
     }
 
 
