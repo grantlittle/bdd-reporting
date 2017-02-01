@@ -41,10 +41,10 @@
         };
 
         $scope.labelFilter = function(item) {
-            return isOption(item.labels, $scope.selections.selectedLabels)
+            return isLabelOption(item.labels, $scope.selections.selectedLabels)
         };
 
-        var isOption = function(itemTags, selectedTags) {
+        var isTagOption = function(itemTags, selectedTags) {
 
             if (selectedTags === undefined || selectedTags.length <= 0) {
                 return true;
@@ -68,10 +68,33 @@
 
         };
 
+        var isLabelOption = function(itemTags, selectedTags) {
+
+            if (selectedTags === undefined || selectedTags.length <= 0) {
+                return true;
+            }
+            if (itemTags === null || itemTags.length <= 0) {
+                return false;
+            }
+            for (var index in selectedTags) {
+                var tag = selectedTags[index];
+                for (var itemLblIndex in itemTags) {
+                    var lbl = itemTags[itemLblIndex];
+                    if (lbl !== "") {
+                        if (lbl !== tag) {
+                            return false
+                        }
+                    }
+                }
+
+            }
+            return true;
+
+        };
 
 
         $scope.tagFilter = function(item) {
-            return isOption(item.tags, $scope.selections.selectedTags)
+            return isTagOption(item.tags, $scope.selections.selectedTags)
         };
 
 
@@ -88,9 +111,9 @@
                 .then(function(response) {
                     if (response) {
                         $scope.features = response.data;
-                        // $scope.features.data = response.data;
-                        // updateAvailableLabels(response.data);
-                        // updateAvailableTags(response.data);
+                        $scope.features.data = response.data;
+                        updateAvailableLabels(response.data);
+                        updateAvailableTags(response.data);
                     }
                 })
         };
@@ -161,12 +184,12 @@
                 if (feature.labels !== undefined) {
                     for (var labelIndex in feature.labels) {
                         var label = feature.labels[labelIndex];
-                        if (label !== undefined && label.name !== "") {
-                            var count = newLabels[label.name];
+                        if (label !== undefined && label !== "") {
+                            var count = newLabels[label];
                             if (count !== undefined) {
-                                newLabels[label.name] = 1;
+                                newLabels[label] = 1;
                             } else {
-                                newLabels[label.name] = newLabels[label.name]+1;
+                                newLabels[label] = newLabels[label]+1;
                             }
                         }
                     }
