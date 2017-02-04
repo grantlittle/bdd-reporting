@@ -63,6 +63,7 @@ class CucumberFeatureConsumer(@Qualifier("DbEventBus")private val eventBus : Eve
                 id = it.id,
                 name = it.name,
                 description = it.description,
+
                 tags = tags(it.tags),
                 type = it.type,
                 keyword = it.keyword,

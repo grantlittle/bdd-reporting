@@ -1,4 +1,4 @@
-<h3>Feature "{{ featureInfo.name }}"</h3>
+<h3>Feature: "{{ featureInfo.name }}"</h3>
 
 
 <div class="row">
@@ -47,24 +47,13 @@
                     <div class="panel-heading">Filters</div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label" for="scenario_name_filter">Scenario Name:</label>
                                     <input class="form-control" id="scenario_name_filter" type="text" ng-model="search.name">
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="labels">Labels:</label>
-                                    <ui-select class="form-control" id="labels" multiple ng-model="selections.selectedLabels" theme="bootstrap" close-on-select="false" style="width: 100%;" title="Choose a label">
-                                        <ui-select-match placeholder="Select labels...">{{$item}}</ui-select-match>
-                                        <ui-select-choices repeat="label in availableLabels | filter:$select.search">
-                                            {{label}}
-                                        </ui-select-choices>
-                                    </ui-select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="tags">Tags:</label>
                                     <ui-select class="form-control" id="tags" multiple ng-model="selections.selectedTags" theme="bootstrap" close-on-select="false" style="width: 100%;" title="Choose a tag">

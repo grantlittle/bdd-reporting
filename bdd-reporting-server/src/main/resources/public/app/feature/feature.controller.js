@@ -93,7 +93,7 @@
         var updateScenarios = function(data) {
             $scope.scenarios = data;
             initStatsChart(calculateScenarioStats(data));
-            // updateAvailableTags(data);
+            updateAvailableTags(data);
             // updateAvailableLabels(data);
         };
 
@@ -125,27 +125,27 @@
             $scope.tagSet = newTags;
         };
 
-        var updateAvailableLabels = function(data) {
-            var newLabels = {};
-            for (var index in data) {
-                var scenario = data[index];
-                if (scenario.labels !== undefined) {
-                    for (var labelIndex in scenario.labels) {
-                        var label = scenario.labels[labelIndex];
-                        if (label !== undefined && label.name !== "") {
-                            var count = newLabels[label.name];
-                            if (count !== undefined) {
-                                newLabels[label.name] = 1;
-                            } else {
-                                newLabels[label.name] = newLabels[label.name]+1;
-                            }
-                        }
-                    }
-                }
-            }
-            $scope.availableLabels = Object.keys(newLabels);
-            $scope.labelSet = newLabels;
-        };
+        // var updateAvailableLabels = function(data) {
+        //     var newLabels = {};
+        //     for (var index in data) {
+        //         var scenario = data[index];
+        //         if (scenario.labels !== undefined) {
+        //             for (var labelIndex in scenario.labels) {
+        //                 var label = scenario.labels[labelIndex];
+        //                 if (label !== undefined && label !== "") {
+        //                     var count = newLabels[label];
+        //                     if (count !== undefined) {
+        //                         newLabels[label] = 1;
+        //                     } else {
+        //                         newLabels[label] = newLabels[label]+1;
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     $scope.availableLabels = Object.keys(newLabels);
+        //     $scope.labelSet = newLabels;
+        // };
 
         $scope.calculateOverallState = function(scenario) {
             var state = 0;
@@ -294,39 +294,39 @@
         };
 
 
-        var initScenariosHistory = function(data) {
-            $scope.scenariosHistoryChart = {};
-            $scope.scenariosHistoryChart.type = "AreaChart";
-            var rows = calculateRows(data);
-            $scope.scenariosHistoryChart.data = {
-                "cols": [
-                    {id: "time", label: "Time", "type": 'datetime'},
-                    {id: "passed", label: "Pass", type: "number", p: {}},
-                    {id: "pending", label: "Pending", type: "number", p: {}},
-                    {id: "failed", label: "Fail", type: "number", p: {}}
-                ],
-                "rows": rows };
-            $scope.scenariosHistoryChart.options = {
-                'title': 'Run History',
-                'isStacked': true,
-                'colors': ['#468847','#c09853', '#B94A4B'],
-                // 'vAxis': {format: '0'}
-            };
-        };
-
-        var getFeatureHistory = function(callback) {
-            $http.get("/api/1.0/feature/history/" + $stateParams.featureId)
-                .then(function(response) {
-                    if (response) {
-                        callback(response.data);
-                    }
-                });
-
-        };
-
-        getFeatureHistory(function(data) {
-            initScenariosHistory(data)
-        });
+        // var initScenariosHistory = function(data) {
+        //     $scope.scenariosHistoryChart = {};
+        //     $scope.scenariosHistoryChart.type = "AreaChart";
+        //     var rows = calculateRows(data);
+        //     $scope.scenariosHistoryChart.data = {
+        //         "cols": [
+        //             {id: "time", label: "Time", "type": 'datetime'},
+        //             {id: "passed", label: "Pass", type: "number", p: {}},
+        //             {id: "pending", label: "Pending", type: "number", p: {}},
+        //             {id: "failed", label: "Fail", type: "number", p: {}}
+        //         ],
+        //         "rows": rows };
+        //     $scope.scenariosHistoryChart.options = {
+        //         'title': 'Run History',
+        //         'isStacked': true,
+        //         'colors': ['#468847','#c09853', '#B94A4B'],
+        //         // 'vAxis': {format: '0'}
+        //     };
+        // };
+        //
+        // var getFeatureHistory = function(callback) {
+        //     $http.get("/api/1.0/feature/history/" + $stateParams.featureId)
+        //         .then(function(response) {
+        //             if (response) {
+        //                 callback(response.data);
+        //             }
+        //         });
+        //
+        // };
+        //
+        // getFeatureHistory(function(data) {
+        //     initScenariosHistory(data)
+        // });
 
 
 
