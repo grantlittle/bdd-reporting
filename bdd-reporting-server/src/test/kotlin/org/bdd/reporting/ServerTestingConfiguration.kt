@@ -11,4 +11,5 @@ import org.springframework.context.annotation.Configuration
 //@Order(-1001)
 @ComponentScan
 @SpringBootApplication
+@EnableBddReporting
 open class ServerTestingConfiguration
