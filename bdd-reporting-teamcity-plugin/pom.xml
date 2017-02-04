@@ -13,6 +13,10 @@
     <artifactId>bdd-reporting-teamcity-plugin</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
+    <description>
+        This is a parent project for the TeamCity plugin that allows BDD Reports to be uploaded using a native
+        TeamCity plugin
+    </description>
 
     <dependencyManagement>
         <dependencies>
