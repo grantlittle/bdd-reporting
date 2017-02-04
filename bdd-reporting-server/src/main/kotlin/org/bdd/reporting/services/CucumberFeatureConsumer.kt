@@ -75,6 +75,7 @@ class CucumberFeatureConsumer(@Qualifier("DbEventBus")private val eventBus : Eve
         return input.map { CommonStep(
                 line = it.line,
                 keyword = it.keyword,
+                name = it.name,
                 result = result(it.result)
         ) }
     }

@@ -24,6 +24,20 @@ interface FeatureRepository : ElasticsearchRepository<CommonFeature, String> {
     """)
     fun findByName(name : String) : Set<CommonFeature>
 
+    @Query("""
+        {
+          "query": {
+              "bool": {
+                  "must": [
+                    { "match": { "id": "?0" } }
+                  ]
+              }
+          }
+        }
+    """)
+    fun findById(name : String) : CommonFeature
+
+
 
     @Query("""
         {

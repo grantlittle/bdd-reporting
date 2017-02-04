@@ -90,7 +90,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                            <tr ng-repeat="feature in (features | filter:featureNameFilter | filter:labelFilter | filter:tagFilter | orderBy: 'status') as filteredFeatures" ng-class="feature.failedScenarios > 0 ? 'danger' : (feature.pendingScenarios > 0 ? 'warning' : 'success')" ng-click="go(feature.featureId)">
+                            <tr ng-repeat="feature in (features | filter:featureNameFilter | filter:labelFilter | filter:tagFilter | orderBy: 'status') as filteredFeatures" ng-class="feature.failedScenarios > 0 ? 'danger' : (feature.pendingScenarios > 0 ? 'warning' : 'success')" ng-click="go(feature.id)">
                                 <td>{{feature.name}}</td>
                                 <td>{{feature.totalScenarios}}</td>
                                 <td>{{feature.passedScenarios}}</td>

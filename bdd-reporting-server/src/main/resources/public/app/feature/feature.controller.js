@@ -72,7 +72,7 @@
 
 
         var getFeatureInfo = function(callback) {
-            $http.get("/api/1.0/features/" +$stateParams.featureId)
+            $http.get("/api/feature/1.0/" +$stateParams.featureId)
                 .then(function(response) {
                     if (response) {
                         callback(response.data);
@@ -80,25 +80,28 @@
                 })
         };
         
-        getFeatureInfo(function(data) {
-            $scope.featureInfo = data;
-        });
 
-        var getScenarios = function(callback) {
-            $http.get("/api/1.0/scenarios/" +$stateParams.featureId)
-                .then(function(response) {
-                    if (response) {
-                        callback(response.data);
-                    }
-                });
-        };
+        // var getScenarios = function(callback) {
+        //     $http.get("/api/1.0/scenarios/" +$stateParams.featureId)
+        //         .then(function(response) {
+        //             if (response) {
+        //                 callback(response.data);
+        //             }
+        //         });
+        // };
 
-        getScenarios(function(data) {
+        var updateScenarios = function(data) {
             $scope.scenarios = data;
             initStatsChart(calculateScenarioStats(data));
-            updateAvailableTags(data);
-            updateAvailableLabels(data);
+            // updateAvailableTags(data);
+            // updateAvailableLabels(data);
+        };
+
+        getFeatureInfo(function(data) {
+            $scope.featureInfo = data;
+            updateScenarios(data.scenarios)
         });
+
 
         var updateAvailableTags = function(data) {
             var newTags = {};
@@ -144,6 +147,27 @@
             $scope.labelSet = newLabels;
         };
 
+        $scope.calculateOverallState = function(scenario) {
+            var state = 0;
+            for (var stepIndex in  scenario.steps) {
+                var step = scenario.steps[stepIndex];
+                if ((step.result == null || step.result === "pending") && state < 1) {
+                    state = 1;
+                } else if (step.result === "failed" && state < 2) {
+                    state = 2;
+                }
+            }
+            if (state === 0) {
+                return "passed";
+            } else if (state === 1) {
+                return "pending";
+            } else if (state === 2) {
+                return "failed";
+            } else {
+                return "ignored"
+            }
+        };
+
 
         var calculateScenarioStats = function(data) {
             var statsOverview = {
@@ -157,9 +181,9 @@
                 var state = 0;
                 for (var stepIndex in  scenario.steps) {
                     var step = scenario.steps[stepIndex];
-                    if ((step.state == null || step.state === "PENDING") && state < 1) {
+                    if ((step.result == null || step.result === "pending") && state < 1) {
                         state = 1;
-                    } else if (step.state === "FAILED" && state < 2) {
+                    } else if (step.result === "failed" && state < 2) {
                         state = 2;
                     }
                 }

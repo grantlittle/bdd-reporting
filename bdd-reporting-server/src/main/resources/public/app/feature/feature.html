@@ -87,15 +87,16 @@
         <div class="row" ng-repeat="scenario in ( scenarios | filter:nameFilter | filter:labelFilter | filter:tagFilter | orderBy: 'scenarioIndex') as filteredScenarios ">
 
             <div class="col-md-12">
-                <div class="panel" ng-class="scenario.overallState === 'PENDING' ? 'panel-warning' : (scenario.overallState === 'FAILED' ? 'panel-danger' : 'panel-success')">
+                <!--<div class="panel" >-->
+                <div class="panel" ng-class="calculateOverallState(scenario) === 'pending' ? 'panel-warning' : (calculateOverallState(scenario) === 'failed' ? 'panel-danger' : 'panel-success')">
                     <div class="panel-heading">
-                        <h3 class="panel-title">{{scenario.scenarioIndex + 1}}) {{ scenario.name }}</h3>
+                        <h3 class="panel-title">{{ scenario.name }}</h3>
                     </div>
                     <div class="panel-body">
                         <div class="well" ng-bind-html="scenario.description" ng-show="scenario.description">
                         </div>
                         <div ng-repeat="step in scenario.steps">
-                            {{ step.keyword }}&nbsp;{{ step.name }}
+                            {{ step.name }}
                         </div>
                     </div>
                 </div>
