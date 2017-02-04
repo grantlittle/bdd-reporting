@@ -10,6 +10,9 @@
 
 	<name>bdd-reporting</name>
 	<description>BDD Enterprise Reporting</description>
+	<description>
+		This is the parent module of the BDD Reporting project.
+	</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -20,8 +23,14 @@
 
 	<modules>
 		<module>bdd-reporting-server</module>
-		<module>bdd-reporting-teamcity-plugin</module>
 	</modules>
+
+	<licenses>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -119,12 +128,6 @@
 
 
 			<!-- Testing dependencies -->
-			<!--<dependency>-->
-				<!--<groupId>org.apache.curator</groupId>-->
-				<!--<artifactId>curator-test</artifactId>-->
-				<!--<version>${apache.curator.version}</version>-->
-				<!--<scope>test</scope>-->
-			<!--</dependency>-->
 			<dependency>
 				<groupId>info.cukes</groupId>
 				<artifactId>cucumber-junit</artifactId>
@@ -143,52 +146,15 @@
 				<version>${cucumber.version}</version>
 				<scope>test</scope>
 			</dependency>
-			<!--<dependency>-->
-				<!--<groupId>org.springframework.boot</groupId>-->
-				<!--<artifactId>spring-boot-starter-test</artifactId>-->
-				<!--<scope>test</scope>-->
-			<!--</dependency>-->
-			<!--<dependency>-->
-				<!--<groupId>commons-io</groupId>-->
-				<!--<artifactId>commons-io</artifactId>-->
-				<!--<scope>test</scope>-->
-			<!--</dependency>-->
-
-			<!--<dependency>-->
-				<!--<groupId>org.springframework.kafka</groupId>-->
-				<!--<artifactId>spring-kafka-test</artifactId>-->
-				<!--<version>${spring.kafka.version}</version>-->
-				<!--&lt;!&ndash;<scope>test</scope>&ndash;&gt;-->
-			<!--</dependency>-->
 
 		<!-- End of testing dependencies -->
-			<!--<dependency>-->
-				<!--<groupId>org.springframework.cloud</groupId>-->
-				<!--<artifactId>spring-cloud-dependencies</artifactId>-->
-				<!--<version>Camden.BUILD-SNAPSHOT</version>-->
-				<!--<type>pom</type>-->
-				<!--<scope>import</scope>-->
-			<!--</dependency>-->
 		</dependencies>
 	</dependencyManagement>
 
-	<!--<repositories>-->
-		<!--<repository>-->
-			<!--<id>spring-snapshots</id>-->
-			<!--<name>Spring Snapshots</name>-->
-			<!--<url>https://repo.spring.io/snapshot</url>-->
-			<!--<snapshots>-->
-				<!--<enabled>true</enabled>-->
-			<!--</snapshots>-->
-		<!--</repository>-->
-		<!--<repository>-->
-			<!--<id>spring-milestones</id>-->
-			<!--<name>Spring Milestones</name>-->
-			<!--<url>https://repo.spring.io/milestone</url>-->
-			<!--<snapshots>-->
-				<!--<enabled>false</enabled>-->
-			<!--</snapshots>-->
-		<!--</repository>-->
-	<!--</repositories>-->
+    <scm>
+        <connection>scm:git:https://github.com/grantlittle/bdd-reporting.git</connection>
+        <developerConnection>scm:https://github.com/grantlittle/bdd-reporting.git</developerConnection>
+        <url>https://github.com/grantlittle/bdd-reporting</url>
+    </scm>
 
 </project>

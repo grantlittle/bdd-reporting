@@ -8,7 +8,10 @@
     <packaging>jar</packaging>
 
     <name>bdd-reporting-server</name>
-    <description>BDD Enterprise Reporting Server</description>
+    <description>
+        BDD Enterprise Reporting Server. This server provides the ability to upload reports from tools like Cucumber,
+        Specflow, Pickles and the information is then aggregated into a central view across all projects.
+    </description>
 
     <parent>
         <groupId>org.bdd.reporting</groupId>
@@ -17,15 +20,26 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Grant Little</name>
+            <email>grant@grantlittle.me</email>
+            <organizationUrl>http://grantlittle.me</organizationUrl>
+        </developer>
+    </developers>
+
     <dependencies>
         <dependency>
             <groupId>com.github.spullara.mustache.java</groupId>
             <artifactId>compiler</artifactId>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.cloud</groupId>-->
-        <!--<artifactId>spring-cloud-starter-zookeeper-discovery</artifactId>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
@@ -134,13 +148,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.kafka</groupId>-->
-        <!--<artifactId>spring-kafka-test</artifactId>-->
-        <!--<version>${spring.kafka.version}</version>-->
-        <!--&lt;!&ndash;<scope>test</scope>&ndash;&gt;-->
-        <!--</dependency>-->
-
         <!-- End of testing dependencies -->
     </dependencies>
 
@@ -167,7 +174,7 @@
                 <executions>
                     <execution>
                         <id>compile</id>
-                        <phase>compile</phase>
+                        <phase>process-sources</phase>
                         <goals>
                             <goal>compile</goal>
                         </goals>
@@ -202,5 +209,12 @@
             </snapshots>
         </repository>
     </repositories>
+
+
+    <scm>
+        <connection>scm:git:https://github.com/grantlittle/bdd-reporting.git</connection>
+        <developerConnection>scm:https://github.com/grantlittle/bdd-reporting.git</developerConnection>
+        <url>https://github.com/grantlittle/bdd-reporting</url>
+    </scm>
 
 </project>

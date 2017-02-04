@@ -28,3 +28,4 @@ src/main/resources/templates/
 /.idea/
 /bdd-reporting-server/derby.log
 /bdd-reporting-server/data/
+/derby.log
