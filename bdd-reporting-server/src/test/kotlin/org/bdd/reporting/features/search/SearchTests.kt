@@ -11,7 +11,8 @@ import org.junit.runner.RunWith
 @CucumberOptions(features = arrayOf("src/test/resources/features/search"),
         glue = arrayOf(
                 "org.bdd.reporting.features.search",
-                "cucumber.api.spring"))
+                "cucumber.api.spring"),
+        plugin = arrayOf("json:target/cucumber-report/SearchTests.json"))
 class SearchTests {
 //    companion object {
 //        @ClassRule
