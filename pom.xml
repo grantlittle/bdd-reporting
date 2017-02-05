@@ -9,7 +9,6 @@
 	<packaging>pom</packaging>
 
 	<name>bdd-reporting</name>
-	<description>BDD Enterprise Reporting</description>
 	<description>
 		This is the parent module of the BDD Reporting project.
 	</description>
