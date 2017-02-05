@@ -14,7 +14,8 @@ import org.junit.runner.RunWith
 @CucumberOptions(features = arrayOf("src/test/resources/features/dashboard"),
         glue = arrayOf(
                 "org.bdd.reporting.features.dashboard",
-                "cucumber.api.spring"))
+                "cucumber.api.spring"),
+        plugin = arrayOf("json:target/cucumber-report/DashboardTests.json"))
 class DashboardTests {
 
 //    companion object {

@@ -2,7 +2,6 @@ package org.bdd.reporting.features.parsing
 
 import cucumber.api.CucumberOptions
 import cucumber.api.junit.Cucumber
-import org.junit.ClassRule
 import org.junit.runner.RunWith
 //import org.springframework.kafka.test.rule.KafkaEmbedded
 
@@ -15,7 +14,8 @@ import org.junit.runner.RunWith
         glue = arrayOf(
                 "org.bdd.reporting.features.parsing",
                 "cucumber.api.spring"
-        ))
+        ),
+        plugin = arrayOf("json:target/cucumber-report/ParsingTests.json"))
 class ParsingTests {
 //    companion object {
 //
