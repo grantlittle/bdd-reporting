@@ -16,6 +16,7 @@ class DashboardController(val repository: FeatureOverviewRepository) {
     fun all() : DashboardOverview {
         val overview = DashboardOverview()
         repository.findAll().forEach {
+            overview.totalFeatures++
             overview.failedScenarios += it.failedScenarios
             overview.passedScenarios += it.passedScenarios
             overview.ignoredScenarios += it.ignoredScenarios

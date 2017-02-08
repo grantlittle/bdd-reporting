@@ -14,7 +14,7 @@
     </description>
 
     <parent>
-        <groupId>org.bdd.reporting</groupId>
+        <groupId>com.github.grantlittle</groupId>
         <artifactId>bdd-reporting</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
@@ -156,7 +156,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Camden.BUILD-SNAPSHOT</version>
+                <version>Brixton.SR7</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

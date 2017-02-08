@@ -14,4 +14,4 @@ import org.springframework.test.context.ContextConfiguration
 @ContextConfiguration(classes = arrayOf(ServerTestingConfiguration::class), loader = SpringBootContextLoader::class)
 @ActiveProfiles("noauth")
 @ComponentScan
-open abstract class AbstractStepDefs
+abstract class AbstractStepDefs

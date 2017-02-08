@@ -16,6 +16,6 @@ class FeatureRestController(val featureRepository: FeatureRepository) {
 
     @GetMapping(value = "{id}")
     fun get(@PathVariable("id") id: String) : CommonFeature {
-        return featureRepository.findById(id)
+        return featureRepository.findOne(id)
     }
 }

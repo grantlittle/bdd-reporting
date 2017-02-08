@@ -3,8 +3,6 @@ package org.bdd.reporting.data
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import org.springframework.data.elasticsearch.annotations.Document
 import java.io.Serializable
-import java.math.BigInteger
-import java.sql.Timestamp
 import java.util.*
 import javax.persistence.*
 
@@ -13,7 +11,7 @@ import javax.persistence.*
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Document(indexName = "features")
-data class CommonFeature(var id : String? = null,
+data class CommonFeature(@org.springframework.data.annotation.Id var id : String? = null,
                          var name : String? = null,
                          var description : String? = "",
                          val labels : Set<String>? = mutableSetOf(),
@@ -47,7 +45,7 @@ open class DbEvent(@Id var topic : String? = null,
                    @Id var id: String? = null,
                    @Id var timestamp : Date? = null,
                    @Lob
-                 @Column(length = 100000)
+                 @Column(length = 400000)
                  var data : String? = null)
 
 open class DbEventKey(var topic : String? = null,

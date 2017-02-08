@@ -5,24 +5,28 @@
             <div class="col-md-12">
                 <ul class="list-group">
                     <li class="list-group-item">
+                        <span class="badge">{{ statsOverview.features }}</span>
+                        <strong>Total Features:</strong>
+                    </li>
+                    <li class="list-group-item">
                         <span class="badge">{{ statsOverview.total }}</span>
-                        <strong>Total:</strong>
+                        <strong>Total Scenarios:</strong>
                     </li>
                     <li class="list-group-item">
                         <span class="badge">{{ statsOverview.failed }}</span>
-                        <strong>Failed:</strong>
+                        <strong>Failed Scenarios:</strong>
                     </li>
                     <li class="list-group-item">
                         <span class="badge">{{ statsOverview.passed }}</span>
-                        <strong>Passed:</strong>
+                        <strong>Passed Scenarios:</strong>
                     </li>
                     <li class="list-group-item">
                         <span class="badge">{{ statsOverview.ignored }}</span>
-                        <strong>Ignored:</strong>
+                        <strong>Ignored Scenarios:</strong>
                     </li>
                     <li class="list-group-item">
                         <span class="badge">{{ statsOverview.pending }}</span>
-                        <strong>Pending:</strong>
+                        <strong>Pending Scenarios:</strong>
                     </li>
                 </ul>
             </div>
@@ -80,7 +84,7 @@
                 <table class="table table-striped table-hover " ng-show="features.length > 0 ">
                     <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Feature Name</th>
                         <th>Total</th>
                         <th>Passed</th>
                         <th>Pending</th>

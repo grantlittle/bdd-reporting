@@ -125,11 +125,13 @@
                 "failed": 0,
                 "pending": 0,
                 "ignored" : 0,
-                "total": 0
+                "total": 0,
+                "features": 0
             };
             if (data.length > 0) {
                 for (var index in data) {
                     var feature = data[index];
+                    statsOverview.features = statsOverview.features + 1;
                     statsOverview.passed += feature.passedScenarios;
                     statsOverview.pending += feature.pendingScenarios;
                     statsOverview.failed += feature.failedScenarios;
