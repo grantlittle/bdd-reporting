@@ -156,4 +156,20 @@
         <url>https://github.com/grantlittle/bdd-reporting</url>
     </scm>
 
+	<distributionManagement>
+
+		<repository>
+			<id>sonatype_release</id>
+			<name>Staging Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+		</repository>
+
+		<snapshotRepository>
+			<id>sonatype_snapshots</id>
+			<name>Snapshots Repository</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+
+	</distributionManagement>
+
 </project>
