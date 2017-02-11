@@ -16,7 +16,7 @@ class FeatureOverviewRestController(val featureOverviewRepository: FeatureOvervi
 
     @GetMapping("/", produces = arrayOf("application/json"))
     @ResponseBody
-    fun get(@RequestParam("labels")labels : String, @RequestParam("tags") tags :String) : List<FeatureOverview> {
+    fun get(@RequestParam("properties")labels : String, @RequestParam("tags") tags :String) : List<FeatureOverview> {
         return featureOverviewRepository.findAll().toList()
     }
 }

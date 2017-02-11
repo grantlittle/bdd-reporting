@@ -14,13 +14,23 @@ import javax.persistence.*
 data class CommonFeature(@org.springframework.data.annotation.Id var id : String? = null,
                          var name : String? = null,
                          var description : String? = "",
-                         val labels : Set<String>? = mutableSetOf(),
+                         val properties: Set<CommonProperty>? = mutableSetOf(),
                          val tags : Set<CommonTag> = mutableSetOf(),
                          var timestamp : Date? = null,
                          var scenarios : List<CommonScenario> = mutableListOf())
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class CommonTag(var name : String? = null, var line : Int? = null)
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class CommonProperty(var key : String? = null, var value : String? = null) {
+
+    constructor(keyValue : String) : this(null, null) {
+        val array = keyValue.split("=")
+        key = array[0].trim()
+        value = array[1].trim()
+    }
+}
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class CommonScenario(var id : String? = null,

@@ -2,10 +2,7 @@ package org.bdd.reporting.services
 
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
-import org.bdd.reporting.data.CommonFeature
-import org.bdd.reporting.data.CommonScenario
-import org.bdd.reporting.data.CommonStep
-import org.bdd.reporting.data.CommonTag
+import org.bdd.reporting.data.*
 import org.bdd.reporting.events.CucumberFeatureEvent
 import org.bdd.reporting.events.EventBus
 import org.bdd.reporting.web.rest.cucumber.*
@@ -39,8 +36,15 @@ class CucumberFeatureConsumer(@Qualifier("DbEventBus")private val eventBus : Eve
         if (log.isInfoEnabled) {
             log.info("Received ConsumerRecord with contents $event")
         }
-        val commonFeature = map(event.feature as CucumberFeature)
+        val commonFeature = map(event.feature as CucumberFeature, properties(event.properties))
         eventBus.send("common-features", event.uuid, commonFeature)
+    }
+
+    internal fun properties(strings : Set<String>?) : Set<CommonProperty> {
+        if (strings == null) {
+            return emptySet()
+        }
+        return strings.map(::CommonProperty).toSet()
     }
 
     fun tags(input : Set<CucumberTag>?) : Set<CommonTag> {
@@ -48,13 +52,13 @@ class CucumberFeatureConsumer(@Qualifier("DbEventBus")private val eventBus : Eve
         return input.map { CommonTag(it.name as String, it.line) }.toSet()
     }
 
-    private fun map(input : CucumberFeature) : CommonFeature {
+    private fun map(input : CucumberFeature, properties : Set<CommonProperty>) : CommonFeature {
         return CommonFeature(id = input.id ?: input.name!!,
                 timestamp = input.timestamp,
                 name = input.name!!,
                 description = input.description,
-                labels = input.labels ?: emptySet(),
                 tags = tags(input.tags),
+                properties = properties,
                 scenarios = scenarios(input.elements))
     }
 
@@ -63,7 +67,6 @@ class CucumberFeatureConsumer(@Qualifier("DbEventBus")private val eventBus : Eve
                 id = it.id,
                 name = it.name,
                 description = it.description,
-
                 tags = tags(it.tags),
                 type = it.type,
                 keyword = it.keyword,

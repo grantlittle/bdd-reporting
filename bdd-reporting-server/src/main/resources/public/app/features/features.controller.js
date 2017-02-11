@@ -102,7 +102,7 @@
         var getFeatures = function() {
             var url = "/api/featureoverviews/1.0/?";
             if ($scope.selections.selectedLabels) {
-                url += "labels=" + $scope.selections.selectedLabels
+                url += "properties=" + $scope.selections.selectedLabels
             }
             if ($scope.selections.selectedTags) {
                 url += "&tags=" + $scope.selections.selectedTags
@@ -148,7 +148,7 @@
             $state.go('feature', {featureId: featureId});
         };
         // var getAvailableLabels = function() {
-        //     $http.get("/api/1.0/labels")
+        //     $http.get("/api/1.0/properties")
         //         .then(function(response) {
         //             if (response) {
         //                 $scope.availableLabels = response.data

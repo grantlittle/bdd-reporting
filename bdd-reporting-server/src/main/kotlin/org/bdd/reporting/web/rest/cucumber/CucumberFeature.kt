@@ -17,7 +17,6 @@ data class CucumberFeature constructor (
         var uri: String? = null,
         var elements: Array<CucumberScenario> = emptyArray(),
         var tags: Set<CucumberTag>? = null,
-        var labels: Set<String>? = null,
         val timestamp : Date = Date()) : Serializable {
 
     companion object {

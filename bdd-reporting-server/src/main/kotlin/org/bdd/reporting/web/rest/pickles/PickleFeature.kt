@@ -12,4 +12,4 @@ data class PickleFeature(@JsonProperty("Name") var name: String? = null,
                          @JsonProperty("FeatureElements") var scenarios: List<PickleScenario>? = emptyList(),
                          @JsonProperty("Result")var result: PickleResult? = null,
                          @JsonProperty("Tags")var tags: Set<String>? = emptySet(),
-                         @JsonProperty("labels")var labels: Set<String>? = null)
+                         @JsonProperty("properties")var labels: Set<String>? = null)

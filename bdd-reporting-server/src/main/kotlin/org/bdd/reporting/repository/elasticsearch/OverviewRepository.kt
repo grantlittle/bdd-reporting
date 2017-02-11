@@ -1,6 +1,7 @@
 package org.bdd.reporting.repository.elasticsearch
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import org.bdd.reporting.data.CommonProperty
 import org.bdd.reporting.data.CommonTag
 import org.springframework.data.annotation.Id
 import org.springframework.data.elasticsearch.annotations.Document
@@ -51,7 +52,7 @@ open class FeatureOverview(@Id val id : String? = null,
                            val totalSteps: Int = 0,
                            val overallStatus: String? = null,
                            val tags : Set<CommonTag> = mutableSetOf(),
-                           val labels : Set<String> = mutableSetOf())
+                           val properties : Set<CommonProperty> = mutableSetOf())
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Document(indexName = "feature_history")
@@ -72,4 +73,4 @@ open class FeatureHistory(@Id val id : String? = null,
                           val totalSteps: Int = 0,
                           val overallStatus: String? = null,
                           val tags : Set<CommonTag> = mutableSetOf(),
-                          val labels : Set<String> = mutableSetOf())
+                          val properties : Set<CommonProperty> = mutableSetOf())

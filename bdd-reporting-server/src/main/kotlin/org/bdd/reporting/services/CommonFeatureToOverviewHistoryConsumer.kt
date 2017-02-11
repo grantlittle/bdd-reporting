@@ -53,7 +53,7 @@ open class CommonFeatureToFeatureHistoryConsumer(@Qualifier("DbEventBus")val eve
                 ignoredSteps = result.second["ignored"] ?: 0,
                 totalSteps = result.second["total"] ?: 0,
                 overallStatus = determineOverallStatus(result.first),
-                labels = commonFeature.labels ?: mutableSetOf(),
+                properties = commonFeature.properties ?: mutableSetOf(),
                 tags = commonFeature.tags
         )
     }

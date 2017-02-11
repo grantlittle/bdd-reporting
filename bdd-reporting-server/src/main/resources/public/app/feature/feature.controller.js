@@ -95,15 +95,6 @@
         });
         
 
-        // var getScenarios = function(callback) {
-        //     $http.get("/api/1.0/scenarios/" +$stateParams.featureId)
-        //         .then(function(response) {
-        //             if (response) {
-        //                 callback(response.data);
-        //             }
-        //         });
-        // };
-
         var updateScenarios = function(data) {
             $scope.scenarios = data;
             initStatsChart(calculateScenarioStats(data));
@@ -138,28 +129,6 @@
             $scope.availableTags = Object.keys(newTags);
             $scope.tagSet = newTags;
         };
-
-        // var updateAvailableLabels = function(data) {
-        //     var newLabels = {};
-        //     for (var index in data) {
-        //         var scenario = data[index];
-        //         if (scenario.labels !== undefined) {
-        //             for (var labelIndex in scenario.labels) {
-        //                 var label = scenario.labels[labelIndex];
-        //                 if (label !== undefined && label !== "") {
-        //                     var count = newLabels[label];
-        //                     if (count !== undefined) {
-        //                         newLabels[label] = 1;
-        //                     } else {
-        //                         newLabels[label] = newLabels[label]+1;
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     }
-        //     $scope.availableLabels = Object.keys(newLabels);
-        //     $scope.labelSet = newLabels;
-        // };
 
         $scope.calculateOverallState = function(scenario) {
             var state = 0;

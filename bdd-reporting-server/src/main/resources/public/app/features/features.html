@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                     <label for="labels">Labels:</label>
                                     <ui-select class="form-control" id="labels" multiple ng-model="selections.selectedLabels" theme="bootstrap" close-on-select="false" style="width: 100%;" title="Choose a label" on-change="applyFilters()">
-                                        <ui-select-match placeholder="Select labels...">{{$item}}</ui-select-match>
+                                        <ui-select-match placeholder="Select properties...">{{$item}}</ui-select-match>
                                         <ui-select-choices repeat="label in availableLabels | filter:$select.search">
                                             {{label}}
                                         </ui-select-choices>

@@ -12,6 +12,6 @@ data class PickleScenario(@JsonProperty("Name") var name: String? = null,
                           @JsonProperty("Steps") var steps : List<PickleStep>? = emptyList(),
                           @JsonProperty("Tags") var tags : Set<String>? = emptySet(),
                           @JsonProperty("Result") var result : PickleResult? = null,
-                          @JsonProperty("labels")var labels: Set<String>? = null,
+                          @JsonProperty("properties")var labels: Set<String>? = null,
                           @JsonProperty("Examples")var examples: List<PickleExample>? = null)
 
