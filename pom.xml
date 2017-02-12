@@ -151,9 +151,9 @@
 	</dependencyManagement>
 
     <scm>
-        <connection>scm:git:https://github.com/grantlittle/bdd-reporting.git</connection>
-        <developerConnection>scm:https://github.com/grantlittle/bdd-reporting.git</developerConnection>
-        <url>https://github.com/grantlittle/bdd-reporting</url>
+        <connection>scm:git:git@github.com:grantlittle/bdd-reporting.git</connection>
+        <developerConnection>scm:git:git@github.com:grantlittle/bdd-reporting.git</developerConnection>
+        <url>scm:git:git@github.com:grantlittle/bdd-reporting</url>
     </scm>
 
 	<distributionManagement>
