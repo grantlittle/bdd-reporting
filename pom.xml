@@ -4,7 +4,7 @@
 
 	<groupId>com.github.grantlittle</groupId>
 	<artifactId>bdd-reporting</artifactId>
-	<version>0.1.3</version>
+	<version>0.1.4-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>bdd-reporting</name>
@@ -168,7 +168,7 @@
         <connection>scm:git:git@github.com:grantlittle/bdd-reporting.git</connection>
         <developerConnection>scm:git:git@github.com:grantlittle/bdd-reporting.git</developerConnection>
         <url>scm:git:git@github.com:grantlittle/bdd-reporting</url>
-      <tag>bdd-reporting-0.1.3</tag>
+      <tag>bdd-reporting-0.1.1</tag>
   </scm>
 
 	<distributionManagement>
