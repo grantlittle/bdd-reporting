@@ -83,3 +83,17 @@ Here is an example:
 ```bash
 curl -X PUT --upload-file /path/to/reports/FeatureReport.json -H "Content-Type:application/json" -H "BDD-Reporting-Properties: environment=dev,build=1.1.1" http://localhost:8080/api/1.0/features/cucumber
 ```
+
+##Screenshots
+
+###Dashboard
+
+![Alt text](github/images/dashboard.png?raw=true "Dashboard")
+
+###Viewing Features
+
+![Alt text](github/images/features.png?raw=true "Features")
+
+###Viewing a Single Feature
+
+![Alt text](github/images/feature.png?raw=true "Feature")
