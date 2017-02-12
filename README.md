@@ -14,3 +14,72 @@ are creating.
 This project is still very much in the early stages of development and features
 will be implemented based on end customer requirements. If there is some feature
 that you would like from the tool then please raise a request.
+
+## Installation
+
+This project does not currently provide a standalone server that you can simply "run". 
+Instead a simple standalone Spring Boot application can be created using something 
+like the [Spring Initializr](http://start.spring.io). This allows companies to apply  
+whatever internal security and configuration they want without imposing those 
+requirements on the BDD-Reporting tool.
+
+To install and initiate the framework, you will need to add the following 
+dependency into your build via something like Maven or Gradle
+
+```xml
+    <dependency>
+        <groupId>com.github.grantlittle</groupId>
+        <artifactId>bdd-reporting</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+    </dependency>
+```
+
+With the required dependency in place. You should then be able to initiate the services 
+by adding the following to the top of a Configuration class
+
+```text
+@EnableBddReporting
+```
+
+for example
+
+```java
+@Configuration
+@EnableBddReporting
+public class MyApplicationConfiguration {
+   
+}
+```
+
+Currently the implementation of BDD-Reporting runs an embedded Elasticsearch cluster and in
+in memory database. That is because the product is not considered ready for production yet 
+and when it reaches this point, it will require an external database and Elasticsearch cluster
+to be pre-configured. However embedded functionality allows for easy testing and demo at this
+early phase of the project
+
+##Usage
+
+###Uploading Cucumber Reports
+
+Currently the tool only supports cucumber reports in the json format. Therefore you
+will need to configure your CucumberOptions to output in this format. Please see
+the [Cucumber documentation](https://cucumber.io/docs/reference/jvm#configuration) 
+on how to do this, but as a quick demonstration on
+how to do this, you can use something like the following:
+```
+@CucumberOptions(plugin = arrayOf("json:target/cucumber-report/SearchTests.json"))
+```
+To upload you files to the BDD Reporting tool. You can simply use curl:-
+
+```bash
+curl -X PUT --upload-file ~/Development/bdd-reporting/bdd-reporting-server/target/cucumber-report/ParsingTests.json -H "Content-Type:application/json" http://localhost:8080/api/1.0/features/cucumber
+```
+
+If you want to add specific properties to the upload which make it possible to 
+create specific dashboards, then include the BDD-Reporting-Properties header. 
+
+Here is an example:
+
+```bash
+curl -X PUT --upload-file ~/Development/bdd-reporting/bdd-reporting-server/target/cucumber-report/ParsingTests.json -H "Content-Type:application/json" -H "BDD-Reporting-Properties: environment=dev,build=1.1.1" http://localhost:8080/api/1.0/features/cucumber
+```

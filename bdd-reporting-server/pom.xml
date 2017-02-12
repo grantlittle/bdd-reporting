@@ -4,13 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>bdd-reporting-server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>bdd-reporting-server</name>
     <description>
         BDD Enterprise Reporting Server. This server provides the ability to upload reports from tools like Cucumber,
-        Specflow, Pickles and the information is then aggregated into a central view across all projects.
+        SpecFlow, Pickles and the information is then aggregated into a central view across all projects.
     </description>
 
     <parent>
