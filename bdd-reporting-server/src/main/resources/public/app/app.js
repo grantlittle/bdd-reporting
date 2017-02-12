@@ -25,13 +25,13 @@
 
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
-        $urlRouterProvider.otherwise('/dashboard');
+        $urlRouterProvider.otherwise('/dashboard/');
 
         $stateProvider
 
         // HOME STATES AND NESTED VIEWS ========================================
             .state('dashboard', {
-                url: '/dashboard/[:property]',
+                url: '/dashboard/:property?',
                 templateUrl: 'app/dashboard/dashboard.html',
                 controller: 'DashboardController',
                 params: {

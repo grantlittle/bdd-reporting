@@ -103,9 +103,17 @@
         };
 
         getFeatureInfo(function(data) {
+            var timestamp = new Date(data.timestamp);
+            data.timestamp = timestamp.toLocaleDateString() + " " + timestamp.toLocaleTimeString();
             $scope.featureInfo = data;
             updateScenarios(data.scenarios)
         });
+
+        function toJSONLocal (date) {
+            var local = new Date(date);
+            local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+            return local.toJSON().slice(0, 10);
+        }
 
 
         var updateAvailableTags = function(data) {
