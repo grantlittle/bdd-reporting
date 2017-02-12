@@ -65,14 +65,14 @@ Currently the tool only supports cucumber reports in the json format. Therefore 
 will need to configure your CucumberOptions to output in this format. Please see
 the [Cucumber documentation](https://cucumber.io/docs/reference/jvm#configuration) 
 on how to do this, but as a quick demonstration on
-how to do this, you can use something like the following:
+how to do this, you can use something like the following (used within Maven):
 ```
-@CucumberOptions(plugin = arrayOf("json:target/cucumber-report/SearchTests.json"))
+@CucumberOptions(plugin = arrayOf("json:target/cucumber-report/FeatureReport.json"))
 ```
 To upload you files to the BDD Reporting tool. You can simply use curl:-
 
 ```bash
-curl -X PUT --upload-file ~/Development/bdd-reporting/bdd-reporting-server/target/cucumber-report/ParsingTests.json -H "Content-Type:application/json" http://localhost:8080/api/1.0/features/cucumber
+curl -X PUT --upload-file /path/to/reports/FeatureReport.json -H "Content-Type:application/json" http://localhost:8080/api/1.0/features/cucumber
 ```
 
 If you want to add specific properties to the upload which make it possible to 
@@ -81,5 +81,5 @@ create specific dashboards, then include the BDD-Reporting-Properties header.
 Here is an example:
 
 ```bash
-curl -X PUT --upload-file ~/Development/bdd-reporting/bdd-reporting-server/target/cucumber-report/ParsingTests.json -H "Content-Type:application/json" -H "BDD-Reporting-Properties: environment=dev,build=1.1.1" http://localhost:8080/api/1.0/features/cucumber
+curl -X PUT --upload-file /path/to/reports/FeatureReport.json -H "Content-Type:application/json" -H "BDD-Reporting-Properties: environment=dev,build=1.1.1" http://localhost:8080/api/1.0/features/cucumber
 ```
