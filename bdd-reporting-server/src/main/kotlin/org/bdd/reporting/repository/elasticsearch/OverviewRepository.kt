@@ -5,6 +5,7 @@ import org.bdd.reporting.data.CommonProperty
 import org.bdd.reporting.data.CommonTag
 import org.springframework.data.annotation.Id
 import org.springframework.data.elasticsearch.annotations.Document
+import org.springframework.data.elasticsearch.annotations.Query
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import org.springframework.stereotype.Repository
 import java.util.*
@@ -13,7 +14,21 @@ import java.util.*
  * Created by Grant Little grant@grantlittle.me
  */
 @Repository
-interface FeatureOverviewRepository : ElasticsearchRepository<FeatureOverview, String>
+interface FeatureOverviewRepository : ElasticsearchRepository<FeatureOverview, String> {
+
+    @Query("""
+            {
+              "query": {
+                  "bool": {
+                      "must": [
+                        { "match": { "properties.key": "?0" } },
+                        { "match": { "properties.value": "?1" } }
+                      ]
+                  }
+              }
+            }    """)
+    fun findByProperty(propertyName : String, propertyValue : String) : Iterable<FeatureOverview>
+}
 
 @Repository
 interface FeatureHistoryRepository : ElasticsearchRepository<FeatureHistory, String> {

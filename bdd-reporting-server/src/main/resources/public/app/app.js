@@ -31,9 +31,13 @@
 
         // HOME STATES AND NESTED VIEWS ========================================
             .state('dashboard', {
-                url: '/dashboard',
+                url: '/dashboard/[:property]',
                 templateUrl: 'app/dashboard/dashboard.html',
-                controller: 'DashboardController'
+                controller: 'DashboardController',
+                params: {
+                    property: null
+                }
+
             })
             .state('features', {
                 url: '/features',

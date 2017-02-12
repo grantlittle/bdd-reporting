@@ -3,12 +3,15 @@
 
     angular.module('bdd-reporting').controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$scope', '$http', '$state'];
+    DashboardController.$inject = ['$scope', '$http', '$state', '$stateParams'];
 
-    function DashboardController($scope, $http, $state) {
+    function DashboardController($scope, $http, $state, $stateParams) {
 
         var getStats = function() {
             var url = "/api/dashboard/1.0/";
+            if (null != $stateParams.property) {
+                url = url + "?property=" + $stateParams.property;
+            }
             $http.get(url)
                 .then(function(response) {
                     if (response) {

@@ -1,21 +1,28 @@
 package org.bdd.reporting.web.rest.controllers
 
+import org.bdd.reporting.repository.elasticsearch.FeatureOverview
 import org.bdd.reporting.repository.elasticsearch.FeatureOverviewRepository
-import org.bdd.reporting.web.rest.dash.DashboardOverview
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.ResponseBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
+@Suppress("unused")
 @RestController
 @RequestMapping("/api/dashboard/1.0")
 class DashboardController(val repository: FeatureOverviewRepository) {
 
     @GetMapping("/", produces = arrayOf("application/json"))
     @ResponseBody
-    fun all() : DashboardOverview {
+    fun all(@RequestParam("property", required = false)property : String?) : DashboardOverview {
+        if (null == property) {
+            return createDashboardOverview(repository.findAll())
+        } else {
+            val values = property.split(":")
+            return createDashboardOverview(repository.findByProperty(values[0], values[1]))
+        }
+    }
+
+    internal fun createDashboardOverview(data : Iterable<FeatureOverview>) : DashboardOverview {
         val overview = DashboardOverview()
-        repository.findAll().forEach {
+        data.forEach {
             overview.totalFeatures++
             overview.failedScenarios += it.failedScenarios
             overview.passedScenarios += it.passedScenarios
@@ -27,4 +34,11 @@ class DashboardController(val repository: FeatureOverviewRepository) {
     }
 
 }
+
+class DashboardOverview(var totalFeatures : Int = 0,
+                        var passedScenarios : Int = 0,
+                        var failedScenarios : Int = 0,
+                        var ignoredScenarios : Int = 0,
+                        var pendingScenarios : Int = 0,
+                        var totalScenarios : Int = 0)
 
