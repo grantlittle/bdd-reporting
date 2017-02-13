@@ -29,7 +29,7 @@ dependency into your build via something like Maven or Gradle
 ```xml
     <dependency>
         <groupId>com.github.grantlittle</groupId>
-        <artifactId>bdd-reporting</artifactId>
+        <artifactId>bdd-reporting-server</artifactId>
         <version>0.1.0-SNAPSHOT</version>
     </dependency>
 ```
