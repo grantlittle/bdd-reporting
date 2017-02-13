@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import org.springframework.data.elasticsearch.annotations.Document
 import java.io.Serializable
 import java.util.*
-import javax.persistence.*
 
 /**
  * Created by Grant Little grant@grantlittle.me
@@ -49,14 +48,20 @@ data class CommonStep(
         var keyword: String? = null,
         var result: String? = null)
 
-@Entity
-@IdClass(DbEventKey::class)
-open class DbEvent(@Id var topic : String? = null,
-                   @Id var id: String? = null,
-                   @Id var timestamp : Date? = null,
-                   @Lob
-                 @Column(length = 400000)
-                 var data : String? = null)
+//@Entity
+//@IdClass(DbEventKey::class)
+//open class DbEvent(@Id var topic : String? = null,
+//                   @Id var id: String? = null,
+//                   @Id var timestamp : Date? = null,
+//                   @Lob
+//                 @Column(length = 400000)
+//                 var data : String? = null)
+
+//@Entity
+open class DbEvent(var topic : String? = null,
+                   var id: String? = null,
+                   var timestamp : Date? = null,
+                   var data : String? = null)
 
 open class DbEventKey(var topic : String? = null,
                       var id: String? = null,

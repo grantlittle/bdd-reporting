@@ -2,7 +2,6 @@ package org.bdd.reporting.events
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.bdd.reporting.data.DbEvent
-import org.bdd.reporting.repository.jpa.EventRepository
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -10,22 +9,18 @@ import java.util.*
  */
 @Service("DbEventBus")
 @Suppress("UNCHECKED_CAST")
-class EventBusImpl(val eventRepository: EventRepository,
-                   val objectMapper : ObjectMapper) : EventBus {
+class EventBusImpl(val objectMapper : ObjectMapper) : EventBus {
 
     private val registrations : MutableMap<String, MutableList<(Any) -> Unit>> = mutableMapOf()
 
 
     override fun <T> send(name: String, event: T) {
         val localEvent = DbEvent(name, UUID.randomUUID().toString(), Date(), objectMapper.writeValueAsString(event))
-        eventRepository.save(localEvent)
         sendEvents(name, localEvent)
 
     }
 
     override fun <T> send(name: String, id : String, event: T) {
-        val localEvent = DbEvent(name, id, Date(), objectMapper.writeValueAsString(event))
-        eventRepository.save(localEvent)
         sendEvents(name, event)
     }
 

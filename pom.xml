@@ -161,11 +161,11 @@
 
 
 			<!-- WebJars -->
-			<dependency>
-				<groupId>org.webjars.bower</groupId>
-				<artifactId>angular</artifactId>
-				<version>${angular.version}</version>
-			</dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>angularjs</artifactId>
+                <version>${angular.version}</version>
+            </dependency>
 			<dependency>
 				<groupId>org.webjars.bower</groupId>
 				<artifactId>angular-sanitize</artifactId>
