@@ -100,7 +100,7 @@
 
 
         var getFeatures = function() {
-            var url = "/api/featureoverviews/1.0/?";
+            var url = "api/featureoverviews/1.0/?";
             if ($scope.selections.selectedLabels) {
                 url += "properties=" + $scope.selections.selectedLabels
             }

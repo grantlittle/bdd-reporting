@@ -72,7 +72,7 @@
 
 
         var getFeatureInfo = function(callback) {
-            $http.get("/api/feature/1.0/" +$stateParams.featureId)
+            $http.get("api/feature/1.0/" +$stateParams.featureId)
                 .then(function(response) {
                     if (response) {
                         callback(response.data);
@@ -81,7 +81,7 @@
         };
 
         var getFeatureHistory = function(callback) {
-            $http.get("/api/featurehistory/1.0?id=" +$stateParams.featureId)
+            $http.get("api/featurehistory/1.0?id=" +$stateParams.featureId)
                 .then(function(response) {
                     if (response) {
                         callback(response.data);

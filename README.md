@@ -57,9 +57,9 @@ and when it reaches this point, it will require an external database and Elastic
 to be pre-configured. However embedded functionality allows for easy testing and demo at this
 early phase of the project
 
-##Usage
+## Usage
 
-###Uploading Cucumber Reports
+### Uploading Cucumber Reports
 
 Currently the tool only supports cucumber reports in the json format. Therefore you
 will need to configure your CucumberOptions to output in this format. Please see
@@ -84,16 +84,16 @@ Here is an example:
 curl -X PUT --upload-file /path/to/reports/FeatureReport.json -H "Content-Type:application/json" -H "BDD-Reporting-Properties: environment=dev,build=1.1.1" http://localhost:8080/api/1.0/features/cucumber
 ```
 
-##Screenshots
+## Screenshots
 
-###Dashboard
+### Dashboard
 
 ![Alt text](github/images/dashboard.png?raw=true "Dashboard")
 
-###Viewing Features
+### Viewing Features
 
 ![Alt text](github/images/features.png?raw=true "Features")
 
-###Viewing a Single Feature
+### Viewing a Single Feature
 
 ![Alt text](github/images/feature.png?raw=true "Feature")

@@ -8,7 +8,7 @@
     function DashboardController($scope, $http, $state, $stateParams) {
 
         var getStats = function() {
-            var url = "/api/dashboard/1.0/";
+            var url = "api/dashboard/1.0/";
             if (null != $stateParams.property) {
                 url = url + "?property=" + $stateParams.property;
             }
