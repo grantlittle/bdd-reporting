@@ -16,7 +16,7 @@ data class CommonFeature(@org.springframework.data.annotation.Id var id : String
                          val properties: Set<CommonProperty>? = mutableSetOf(),
                          val tags : Set<CommonTag> = mutableSetOf(),
                          var timestamp : Date? = null,
-                         var scenarios : List<CommonScenario> = mutableListOf())
+                         var scenarios : List<CommonScenario> = listOf())
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class CommonTag(var name : String? = null, var line : Int? = null)
@@ -39,7 +39,7 @@ data class CommonScenario(var id : String? = null,
                           var type: String? = null,
                           var keyword: String? = null,
                           var line : Int? = null,
-                          var steps: List<CommonStep> = mutableListOf())
+                          var steps: List<CommonStep> = listOf())
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class CommonStep(
