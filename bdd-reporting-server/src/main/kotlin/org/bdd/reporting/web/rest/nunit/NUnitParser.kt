@@ -11,6 +11,7 @@ import org.w3c.dom.NodeList
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.StringReader
+import java.text.SimpleDateFormat
 import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.xpath.XPath
 import javax.xml.xpath.XPathConstants
@@ -21,6 +22,10 @@ import javax.xml.xpath.XPathFactory
  * Created by Grant Little grant@grantlittle.me
  */
 class NUnitParser {
+
+    companion object {
+        val sdf = SimpleDateFormat("yyyy-mm-dd hh:MM:ssX")
+    }
 
     fun parse(inputStream : InputStream) : List<CommonFeature> {
         val dbf = DocumentBuilderFactory.newInstance()
@@ -51,6 +56,8 @@ class NUnitParser {
     internal fun parseFeature(element: Element) : CommonFeature {
         val featureFullName = element.getAttribute("fullname")
         val featureProperties = readProperties(element)
+        val timestampElement = element.getAttribute("end-time")
+        val timestamp = sdf.parse(timestampElement)
 
         val children = element.childNodes
         val scenarios = mutableListOf<CommonScenario>()
@@ -70,7 +77,8 @@ class NUnitParser {
         return CommonFeature(id = featureFullName,
                 tags = featureProperties["tags"] as MutableSet<CommonTag>,
                 scenarios = scenarios,
-                name = featureProperties["name"] as String)
+                name = featureProperties["name"] as String,
+                timestamp = timestamp)
     }
 
     internal fun parseScenario(childElement: Node?) : CommonScenario {
