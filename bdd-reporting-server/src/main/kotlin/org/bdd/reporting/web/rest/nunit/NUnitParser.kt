@@ -1,9 +1,6 @@
 package org.bdd.reporting.web.rest.nunit
 
-import org.bdd.reporting.data.CommonFeature
-import org.bdd.reporting.data.CommonScenario
-import org.bdd.reporting.data.CommonStep
-import org.bdd.reporting.data.CommonTag
+import org.bdd.reporting.data.*
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.Node
@@ -18,42 +15,43 @@ import javax.xml.xpath.XPathConstants
 import javax.xml.xpath.XPathFactory
 
 
+@Suppress("UNCHECKED_CAST")
 /**
  * Created by Grant Little grant@grantlittle.me
  */
 class NUnitParser {
 
     companion object {
-        val sdf = SimpleDateFormat("yyyy-mm-dd hh:MM:ssX")
+        val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm:ssX")
     }
 
-    fun parse(inputStream : InputStream) : List<CommonFeature> {
+    fun parse(inputStream : InputStream, properties: Set<CommonProperty>) : List<CommonFeature> {
         val dbf = DocumentBuilderFactory.newInstance()
         dbf.isNamespaceAware = false
         dbf.isValidating = false
         val db = dbf.newDocumentBuilder()
         val document = db.parse(inputStream)
         val xPath = XPathFactory.newInstance().newXPath()
-        return parseFeatures(document, xPath)
+        return parseFeatures(document, xPath, properties)
 
     }
 
 
-    private fun parseFeatures(result: Document, xPath: XPath): MutableList<CommonFeature> {
+    private fun parseFeatures(result: Document, xPath: XPath, properties: Set<CommonProperty>): MutableList<CommonFeature> {
         val nodeList = xPath.evaluate("//test-suite[@type = 'TestFixture']", result.documentElement, XPathConstants.NODESET) as NodeList
         val features = mutableListOf<CommonFeature>()
 
         // Loop around features
         for (i in 0..nodeList.length - 1) {
             val element = nodeList.item(i) as Element
-            features.add(parseFeature(element))
+            features.add(parseFeature(element, properties))
 
         }
         return features
     }
 
 
-    internal fun parseFeature(element: Element) : CommonFeature {
+    internal fun parseFeature(element: Element, properties: Set<CommonProperty>) : CommonFeature {
         val featureFullName = element.getAttribute("fullname")
         val featureProperties = readProperties(element)
         val timestampElement = element.getAttribute("end-time")
@@ -78,7 +76,8 @@ class NUnitParser {
                 tags = featureProperties["tags"] as MutableSet<CommonTag>,
                 scenarios = scenarios,
                 name = featureProperties["name"] as String,
-                timestamp = timestamp)
+                timestamp = timestamp,
+                properties = properties)
     }
 
     internal fun parseScenario(childElement: Node?) : CommonScenario {

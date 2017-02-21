@@ -14,7 +14,7 @@ class NUnitParserTest {
     fun parse() {
         val resource = this.javaClass.classLoader.getResource("nunit-reporting.xml").openStream()
 
-        val features = NUnitParser().parse(resource)
+        val features = NUnitParser().parse(resource, emptySet())
         assertEquals(1, features.size)
         val feature = features[0]
         assertEquals("Feature1", feature.name)

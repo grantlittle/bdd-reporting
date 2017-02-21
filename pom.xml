@@ -41,6 +41,7 @@
 		<apache.curator.version>3.2.1</apache.curator.version>
         <angular.version>1.5.6</angular.version>
 		<org.mapstruct.version>1.0.0.CR2</org.mapstruct.version>
+		<swagger.version>2.4.0</swagger.version>
 	</properties>
 
     <profiles>
@@ -158,8 +159,16 @@
 				<artifactId>derby</artifactId>
 				<version>10.13.1.1</version>
 			</dependency>
-
-
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>${swagger.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger-ui</artifactId>
+				<version>${swagger.version}</version>
+			</dependency>
 			<!-- WebJars -->
             <dependency>
                 <groupId>org.webjars</groupId>
