@@ -1,9 +1,7 @@
 package org.bdd.reporting.events
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.bdd.reporting.data.DbEvent
 import org.springframework.stereotype.Service
-import java.util.*
 
 /**
  */
@@ -15,8 +13,8 @@ class EventBusImpl(val objectMapper : ObjectMapper) : EventBus {
 
 
     override fun <T> send(name: String, event: T) {
-        val localEvent = DbEvent(name, UUID.randomUUID().toString(), Date(), objectMapper.writeValueAsString(event))
-        sendEvents(name, localEvent)
+//        val localEvent = DbEvent(name, UUID.randomUUID().toString(), Date(), objectMapper.writeValueAsString(event))
+        sendEvents(name, event)
 
     }
 

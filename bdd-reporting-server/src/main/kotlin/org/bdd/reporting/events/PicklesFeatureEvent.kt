@@ -6,5 +6,4 @@ import java.util.*
 /**
  * Created by Grant Little grant@grantlittle.me
  */
-data class PicklesFeatureEvent(val root: PickleRoot? = null, val labels : String? = null, val uuid : String = UUID.randomUUID().toString()) {
-}
+data class PicklesFeatureEvent(val root: PickleRoot? = null, val properties : Set<String>? = null, val uuid : String = UUID.randomUUID().toString())

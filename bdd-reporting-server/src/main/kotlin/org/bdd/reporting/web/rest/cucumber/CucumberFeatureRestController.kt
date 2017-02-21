@@ -11,7 +11,7 @@ import java.util.*
  */
 @Suppress("unused")
 @RestController
-@RequestMapping("/api/1.0/features/cucumber")
+@RequestMapping("/api/features/1.0/cucumber")
 class CucumberFeatureRestController(val eventBus : EventBus) {
 
     init {

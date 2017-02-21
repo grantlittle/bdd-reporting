@@ -1,48 +1,209 @@
 {
   "Features": [
     {
-      "RelativeFolder": "Features\\Feature1.feature",
+      "RelativeFolder": "Feature1.feature",
       "Feature": {
         "Name": "Feature1",
-        "Description": "Description of Feature1",
+        "Description": "In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of two numbers",
         "FeatureElements": [
           {
-            "Name": "Scenario 1",
+            "Name": "Add two numbers",
+            "Slug": "add-two-numbers",
             "Description": "",
             "Steps": [
               {
                 "Keyword": "Given",
                 "NativeKeyword": "Given ",
-                "Name": "we do some setup",
+                "Name": "I have entered 50 into the calculator",
+                "StepComments": [],
+                "AfterLastStepComments": []
+              },
+              {
+                "Keyword": "And",
+                "NativeKeyword": "And ",
+                "Name": "I have entered 70 into the calculator",
                 "StepComments": [],
                 "AfterLastStepComments": []
               },
               {
                 "Keyword": "When",
                 "NativeKeyword": "When ",
-                "Name": "some action takes place",
+                "Name": "I press add",
                 "StepComments": [],
                 "AfterLastStepComments": []
               },
               {
                 "Keyword": "Then",
                 "NativeKeyword": "Then ",
-                "Name": "we check some result",
+                "Name": "the result should be 120 on the screen",
                 "StepComments": [],
                 "AfterLastStepComments": []
               }
             ],
             "Tags": [
-              "@Tag1"
+              "@mytag",
+              "@tag2"
             ],
             "Result": {
-              "WasExecuted": true,
-              "WasSuccessful": true
+              "WasExecuted": false,
+              "WasSuccessful": false
+            }
+          },
+          {
+            "Examples": [
+              {
+                "Name": "",
+                "TableArgument": {
+                  "HeaderRow": [
+                    "value1",
+                    "value2",
+                    "value3",
+                    "result"
+                  ],
+                  "DataRows": [
+                    [
+                      "50",
+                      "10",
+                      "10",
+                      "70"
+                    ],
+                    [
+                      "10",
+                      "10",
+                      "10",
+                      "30"
+                    ]
+                  ]
+                },
+                "Tags": []
+              }
+            ],
+            "Name": "Add three numbers",
+            "Slug": "add-three-numbers",
+            "Description": "This is a description of the scenario outline",
+            "Steps": [
+              {
+                "Keyword": "Given",
+                "NativeKeyword": "Given ",
+                "Name": "I have entered <value1> into the calculator",
+                "StepComments": [],
+                "AfterLastStepComments": []
+              },
+              {
+                "Keyword": "And",
+                "NativeKeyword": "And ",
+                "Name": "I have entered <value2> into the calculator",
+                "StepComments": [],
+                "AfterLastStepComments": []
+              },
+              {
+                "Keyword": "And",
+                "NativeKeyword": "And ",
+                "Name": "I have entered <value3> into the calculator",
+                "StepComments": [],
+                "AfterLastStepComments": []
+              },
+              {
+                "Keyword": "When",
+                "NativeKeyword": "When ",
+                "Name": "I press add",
+                "StepComments": [],
+                "AfterLastStepComments": []
+              },
+              {
+                "Keyword": "Then",
+                "NativeKeyword": "Then ",
+                "Name": "the result should be <result> on the screen",
+                "StepComments": [],
+                "AfterLastStepComments": []
+              }
+            ],
+            "Tags": [
+              "@tag3"
+            ],
+            "Result": {
+              "WasExecuted": false,
+              "WasSuccessful": false
             }
           }
+        ],
+        "Result": {
+          "WasExecuted": false,
+          "WasSuccessful": false
+        },
+        "Tags": [
+          "@featuretag1"
         ]
+      },
+      "Result": {
+        "WasExecuted": false,
+        "WasSuccessful": false
       }
-
     }
-  ]
+  ],
+  "Summary": {
+    "Tags": [
+      {
+        "Tag": "@featuretag1",
+        "Total": 2,
+        "Passing": 0,
+        "Failing": 0,
+        "Inconclusive": 2
+      },
+      {
+        "Tag": "@mytag",
+        "Total": 1,
+        "Passing": 0,
+        "Failing": 0,
+        "Inconclusive": 1
+      },
+      {
+        "Tag": "@tag2",
+        "Total": 1,
+        "Passing": 0,
+        "Failing": 0,
+        "Inconclusive": 1
+      },
+      {
+        "Tag": "@tag3",
+        "Total": 1,
+        "Passing": 0,
+        "Failing": 0,
+        "Inconclusive": 1
+      }
+    ],
+    "Folders": [
+      {
+        "Folder": "Feature1.feature",
+        "Total": 2,
+        "Passing": 0,
+        "Failing": 0,
+        "Inconclusive": 2
+      }
+    ],
+    "NotTestedFolders": [
+      {
+        "Folder": "Feature1.feature",
+        "Total": 0,
+        "Passing": 0,
+        "Failing": 0,
+        "Inconclusive": 0
+      }
+    ],
+    "Scenarios": {
+      "Total": 2,
+      "Passing": 0,
+      "Failing": 0,
+      "Inconclusive": 2
+    },
+    "Features": {
+      "Total": 1,
+      "Passing": 0,
+      "Failing": 0,
+      "Inconclusive": 1
+    }
+  },
+  "Configuration": {
+    "GeneratedOn": "21 February 2017 20:56:54"
+  }
 }

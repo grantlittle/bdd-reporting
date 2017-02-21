@@ -12,7 +12,7 @@ import java.util.*
  * Created by Grant Little grant@grantlittle.me
  */
 @RestController
-@RequestMapping("/api/1.0/features/nunit")
+@RequestMapping("/api/features/1.0/nunit")
 class NUnitRestController(val eventBus : EventBus) {
 
     companion object {
