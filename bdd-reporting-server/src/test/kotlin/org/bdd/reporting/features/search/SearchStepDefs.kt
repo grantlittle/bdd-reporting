@@ -38,7 +38,7 @@ class SearchStepDefs : AbstractStepDefs() {
         val headers = HttpHeaders()
         headers["Content-type"] = "application/json"
         val entity = HttpEntity<String>(json, headers)
-        val responseEntity = restTemplate!!.exchange("/api/1.0/features/cucumber", HttpMethod.PUT, entity, Any::class.java)
+        val responseEntity = restTemplate!!.exchange("/api/features/1.0/cucumber", HttpMethod.PUT, entity, Any::class.java)
         assertEquals(HttpStatus.OK, responseEntity!!.statusCode)
 
     }

@@ -134,10 +134,11 @@ class PicklesFeatureConsumer(@Qualifier("DbEventBus")private val eventBus : Even
     internal fun mapScenarioOutlineStep(pStep : PickleStep, parameters : Map<String, String>, result : String) : CommonStep {
         val cStep = CommonStep(line = null)
         var actualName = pStep.name
-        parameters.forEach { k, v ->
-            if (pStep.name?.contains("<$k>") ?: false) {
-                actualName = pStep.name!!.replace("<$k>", v)
+        parameters.forEach {
+            if (pStep.name?.contains("<${it.key}>") ?: false) {
+                actualName = pStep.name!!.replace("<${it.key}>", it.value)
             }
+
         }
         cStep.name = actualName
         cStep.keyword = pStep.keyword

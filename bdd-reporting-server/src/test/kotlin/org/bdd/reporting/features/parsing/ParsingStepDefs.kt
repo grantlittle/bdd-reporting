@@ -56,13 +56,13 @@ open class ParsingStepDefs : AbstractStepDefs() {
 
     @When("^the cucumber report file is uploaded$")
     fun theCucumberReportFileIsUploaded()  {
-        responseEntity = restTemplate!!.exchange("/api/1.0/features/cucumber", HttpMethod.PUT, entity, Any::class.java)
+        responseEntity = restTemplate!!.exchange("/api/features/1.0/cucumber", HttpMethod.PUT, entity, Any::class.java)
         log.info("Cucumber file has been sent to kafka")
     }
 
     @When("^the pickles report file is uploaded$")
     fun thePicklesReportFileIsUploaded()  {
-        responseEntity = restTemplate!!.exchange("/api/1.0/features/pickles", HttpMethod.PUT, entity, Any::class.java)
+        responseEntity = restTemplate!!.exchange("/api/features/1.0/pickles", HttpMethod.PUT, entity, Any::class.java)
         log.info("Pickles file has been sent to kafka")
     }
 
