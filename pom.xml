@@ -20,7 +20,7 @@
 	</parent>
 
 	<modules>
-		<module>bdd-reporting-server</module>
+		<module>bdd-reporting-service</module>
 	</modules>
 
 	<licenses>

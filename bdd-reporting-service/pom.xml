@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>bdd-reporting-server</artifactId>
+    <artifactId>bdd-reporting-service</artifactId>
     <version>0.1.8-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>bdd-reporting-server</name>
+    <name>bdd-reporting-service</name>
     <description>
         BDD Enterprise Reporting Server. This server provides the ability to upload reports from tools like Cucumber,
         SpecFlow, Pickles and the information is then aggregated into a central view across all projects.
@@ -197,6 +197,43 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>report</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.5.0</version>
+                        <executions>
+                            <execution>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <executable>curl</executable>
+                            <!-- optional -->
+                            <workingDirectory>${build.directory}</workingDirectory>
+                            <arguments>
+                                <argument>--upload-file</argument>
+                                <argument>cucumber-report/SearchTests.json</argument>
+                                <argument>-H</argument>
+                                <argument>Content-Type:application/json</argument>
+                                <argument>-H</argument>
+                                <argument>BDD-Reporting-Properties: environment=dev,build=${project.version}</argument>
+                                <argument>http://localhost:8080/api/features/1.0/cucumber</argument>
+                            </arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <repositories>
         <repository>
