@@ -32,8 +32,8 @@ dependency into your build via something like Maven or Gradle
 ```xml
 <dependency>
     <groupId>com.github.grantlittle</groupId>
-    <artifactId>bdd-reporting-server</artifactId>
-    <version>0.1.6</version>
+    <artifactId>bdd-reporting-service</artifactId>
+    <version>0.1.8</version>
 </dependency>
 ```
 
