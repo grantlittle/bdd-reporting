@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>bdd-reporting-service</artifactId>
-    <version>0.1.8-SNAPSHOT</version>
+    <version>0.1.8</version>
     <packaging>jar</packaging>
 
     <name>bdd-reporting-service</name>
@@ -15,7 +15,7 @@
     <parent>
         <groupId>com.github.grantlittle</groupId>
         <artifactId>bdd-reporting</artifactId>
-        <version>0.1.8-SNAPSHOT</version>
+        <version>0.1.8</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -259,7 +259,7 @@
         <connection>scm:git:https://github.com/grantlittle/bdd-reporting.git</connection>
         <developerConnection>scm:https://github.com/grantlittle/bdd-reporting.git</developerConnection>
         <url>https://github.com/grantlittle/bdd-reporting</url>
-      <tag>bdd-reporting-0.1.1</tag>
+      <tag>bdd-reporting-0.1.8</tag>
   </scm>
 
 </project>
