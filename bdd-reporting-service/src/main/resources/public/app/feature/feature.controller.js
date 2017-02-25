@@ -103,18 +103,20 @@
         };
 
         getFeatureInfo(function(data) {
-            var timestamp = new Date(data.timestamp);
+            var timestamp = parseDate(data.timestamp);
             data.timestamp = timestamp.toLocaleDateString() + " " + timestamp.toLocaleTimeString();
             $scope.featureInfo = data;
             updateScenarios(data.scenarios)
         });
 
-        function toJSONLocal (date) {
-            var local = new Date(date);
-            local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
-            return local.toJSON().slice(0, 10);
+        function parseDate(dateString) {
+            var hours = parseInt(dateString.split("+")[1].substr("0","2"));
+            var mins = parseInt(dateString.split("+")[1].substr("2"));
+            var date = new Date(dateString.split("+")[0]);
+            date.setHours(date.getHours()-hours);
+            date.setMinutes(date.getMinutes()-mins);
+            return date
         }
-
 
         var updateAvailableTags = function(data) {
             var newTags = {};
@@ -270,7 +272,7 @@
                 result.push(
                     {
                         c: [
-                            { v: new Date(item.timestamp) },
+                            { v: parseDate(item.timestamp) },
                             { v: item.passedScenarios },
                             { v: item.pendingScenarios },
                             { v: item.failedScenarios }
