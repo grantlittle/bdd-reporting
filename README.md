@@ -54,11 +54,26 @@ public class MyApplicationConfiguration {
 }
 ```
 
-Currently the implementation of BDD-Reporting runs an embedded Elasticsearch cluster and in
-in memory database. That is because the product is not considered ready for production yet 
-and when it reaches this point, it will require an external database and Elasticsearch cluster
-to be pre-configured. However embedded functionality allows for easy testing and demo at this
-early phase of the project
+Currently the implementation of BDD-Reporting runs an embedded Elasticsearch cluster.
+ 
+The product is still in the early stages of development, as such it is likely there will be breaking changes between 
+versions. However, if you are willing to use the BDD-Reporting service in your environment, then we suggest you secure 
+your server (see the following section on Security), but also we recommend using a separate Elasticsearch cluster.
+
+It is beyond the scope of this document to get a cluster up and running but if you want more information then it's 
+probably best to visit the [Elasticsearch website](https://www.elastic.co/products/elasticsearch) for more information. 
+You can consider using their "As a Service" offering. However, be aware, Elasticsearch versions >= 5.0 is not yet supported.
+
+To communicate with an existing Elasticsearch cluster, you can use the standard Spring properties. Namely, some of the 
+following (from the Spring Boot configuration documentation):-
+
+```properties
+# ELASTICSEARCH (ElasticsearchProperties)
+spring.data.elasticsearch.cluster-name=elasticsearch # Elasticsearch cluster name.
+spring.data.elasticsearch.cluster-nodes= # Comma-separated list of cluster node addresses. If not specified, starts a client node.
+spring.data.elasticsearch.properties.*= # Additional properties used to configure the client.
+spring.data.elasticsearch.repositories.enabled=true # Enable Elasticsearch repositories.
+```
 
 ## Usage
 
@@ -118,7 +133,7 @@ However it is possible to use the [maven-exec-plugin](http://www.mojohaus.org/ex
             <argument>Content-Type:application/json</argument>
             <argument>-H</argument>
             <argument>BDD-Reporting-Properties: environment=dev,build=${project.version}</argument>
-            <argument>http://localhost:8080/api/features/1.0/cucumber</argument>
+            <argument>http://bdd-reporting/api/features/1.0/cucumber</argument>
         </arguments>
     </configuration>
 </plugin>

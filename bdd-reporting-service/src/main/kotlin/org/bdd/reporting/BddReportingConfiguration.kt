@@ -16,9 +16,7 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 open class BddReportingConfiguration {
 
     @Configuration
-    @ConfigurationProperties(prefix = "")
+    @ConfigurationProperties(prefix = "bdd.reporting")
     @EnableConfigurationProperties(BddReportingProperties::class)
-    open class BddReportingProperties {
-
-    }
+    open class BddReportingProperties
 }
